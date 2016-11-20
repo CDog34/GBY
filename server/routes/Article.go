@@ -1,17 +1,11 @@
-package main
+package Route
 
 import (
 	. "github.com/CDog34/GBY/server/handlers"
 	. "github.com/CDog34/GBY/server/services"
 )
 
-var routes = Routes{
-	Route{
-		Name:"Index",
-		Method:"GET",
-		Pattern:"/",
-		HandleFunc:Index,
-	},
+var ArticleRoutes = Routes{
 	Route{
 		Name:"ArticleIndex",
 		Method:"GET",
