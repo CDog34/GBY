@@ -1,34 +1,27 @@
 package main
 
 import (
-	"net/http"
+	. "github.com/CDog34/GBY/server/handlers"
+	. "github.com/CDog34/GBY/server/services"
 )
-
-type Route struct {
-	Name       string
-	Method     string
-	Pattern    string
-	HandleFunc http.HandlerFunc
-}
-type Routes []Route
 
 var routes = Routes{
 	Route{
-		"Index",
-		"GET",
-		"/",
-		Index,
+		Name:"Index",
+		Method:"GET",
+		Pattern:"/",
+		HandleFunc:Index,
 	},
 	Route{
-		"TodoIndex",
-		"GET",
-		"/todos",
-		TodoIndex,
+		Name:"ArticleIndex",
+		Method:"GET",
+		Pattern:"/article",
+		HandleFunc:ArticleIndex,
 	},
 	Route{
-		"TodoShow",
-		"GET",
-		"/todos/{todoId}",
-		TodoShow,
+		Name:"ArticleShow",
+		Method:"GET",
+		Pattern:"/article/{articleId}",
+		HandleFunc:ArticleShow,
 	},
 }
