@@ -73,3 +73,9 @@ func (db *Database) Update(collection string, query map[string]interface{}, data
 	result := dbCollection.Update(query, data)
 	return result
 }
+
+func (db *Database) Delete(collection string, query map[string]interface{}) error {
+	dbCollection := db.selectCollection(collection)
+	result := dbCollection.Remove(query)
+	return result
+}
