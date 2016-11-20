@@ -10,6 +10,7 @@ type Route struct {
 	Method      string
 	Pattern     string
 	HandleFunc  http.HandlerFunc
+	Queries     []string
 	ContentType string
 }
 type Routes []Route
@@ -30,11 +31,14 @@ func NewRouter(appRoute *Routes) *mux.Router {
 			handlerFunc.ServeHTTP(w, r)
 		})
 
-		router.
+		rule := router.
 		Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(handlerFuncProceed)
+		if route.Queries != nil {
+			rule.Queries(route.Queries...)
+		}
 	}
 	return router
 }
