@@ -24,4 +24,10 @@ var routes = Routes{
 		Pattern:"/article/{articleId}",
 		HandleFunc:ArticleShow,
 	},
+	Route{
+		Name:"ArticleCreate",
+		Method:"POST",
+		Pattern:"/article",
+		HandleFunc:ArticleCreate,
+	},
 }
