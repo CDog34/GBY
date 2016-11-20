@@ -30,4 +30,16 @@ var routes = Routes{
 		Pattern:"/article",
 		HandleFunc:ArticleCreate,
 	},
+	Route{
+		Name:"ArticleUpdate",
+		Method:"PUT",
+		Pattern:"/article/{articleId}",
+		HandleFunc:ArticleUpdate,
+	},
+	Route{
+		Name:"ArticleDelete",
+		Method:"DELETE",
+		Pattern:"/article/{articleId}",
+		HandleFunc:ArticleDelete,
+	},
 }

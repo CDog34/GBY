@@ -67,3 +67,9 @@ func (db *Database) Retrieve(collection string, query map[string]interface{}) *m
 	result := dbCollection.Find(query)
 	return result
 }
+
+func (db *Database) Update(collection string, query map[string]interface{}, data interface{}) error {
+	dbCollection := db.selectCollection(collection)
+	result := dbCollection.Update(query, data)
+	return result
+}
