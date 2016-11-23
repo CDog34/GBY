@@ -7,6 +7,7 @@ import (
 	"time"
 	"log"
 	"gopkg.in/mgo.v2/bson"
+	"github.com/CDog34/GBY/server/services"
 )
 
 func ArticleIndex(w http.ResponseWriter, r *http.Request) {
@@ -29,6 +30,21 @@ func ArticleCreate(w http.ResponseWriter, r *http.Request) {
 		UpdateAt:time.Now(),
 		Author:"CDog",
 		Content:"fdsfasdfaswerfohiszhfjl;askdjfoiasuerfopuaehrfo;vilqeuy4rfoisargheudpifoiaerhslifo;iawquheblrjfh",
+	}
+	params := services.PostParams{Request:r, Patterns: services.FieldPattern{
+		"title":map[string]interface{}{
+			"required":true,
+		},
+		"author":map[string]interface{}{
+			"required":true,
+		},
+		"content":map[string]interface{}{
+			"required":true,
+		},
+	}}
+	if err := params.Valid(); err != nil {
+		completeRequest(err, nil, w, r)
+		return
 	}
 	err := newArticle.Save()
 	completeRequest(err, newArticle, w, r)

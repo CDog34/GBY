@@ -4,14 +4,17 @@ import (
 	"net/http"
 	"encoding/json"
 	"log"
+	"github.com/CDog34/GBY/server/models"
 )
 
 func completeRequest(err error, okData interface{}, w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
 	if err != nil {
 		log.Print(err)
-		if err.Error() == "not found" {
-			w.WriteHeader(http.StatusNotFound)
+		errorDetail := Model.Errors[err.Error()]
+		if errorDetail.HttpCode != 0 {
+			w.WriteHeader(errorDetail.HttpCode)
+			encoder.Encode(errorDetail)
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
 		}
