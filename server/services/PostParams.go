@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"errors"
+	"strings"
 )
 
 type FieldRule  map[string]interface{}
@@ -75,11 +76,24 @@ func (pp *PostParams)Valid() error {
 	pp.valid = true
 	return nil
 }
-func (pp *PostParams)Get(key string) interface{} {
-	if pp.Rules[key] != nil {
-		return pp.parsedData[key]
+func (pp *PostParams)GetString(key string) string {
+	if str, ok := pp.parsedData[key].(string); ok && pp.Rules[key] != nil {
+		return strings.Trim(str, " ")
 	} else {
-		return nil
+		return ""
 	}
-
+}
+func (pp *PostParams)GetBool(key string) bool {
+	if val, ok := pp.parsedData[key].(bool); ok && pp.Rules[key] != nil {
+		return val
+	} else {
+		return false
+	}
+}
+func (pp *PostParams)GetInt(key string) int {
+	if val, ok := pp.parsedData[key].(int); ok && pp.Rules[key] != nil {
+		return val
+	} else {
+		return 0
+	}
 }

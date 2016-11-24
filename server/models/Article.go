@@ -42,7 +42,7 @@ func (a *Article) Save() error {
 func (a *Article) GetOne(articleId string) error {
 	db := &DBService
 	if !bson.IsObjectIdHex(articleId) {
-		return errors.New("Invalid ObjectId")
+		return errors.New("paramErr.inValidObjectId/*/" + articleId)
 	}
 	return db.Retrieve(articleCollectionName, bson.M{"_id":bson.ObjectIdHex(articleId)}).One(a)
 }
@@ -68,7 +68,7 @@ func (a *Article) RecoverDeleted(articleId string) error {
 func (a *Article) HardDelete(articleId string) error {
 	db := &DBService
 	if !bson.IsObjectIdHex(articleId) {
-		return errors.New("Invalid ObjectId")
+		return errors.New("paramErr.inValidObjectId/*/" + articleId)
 	}
 	return db.Delete(articleCollectionName, bson.M{"_id":bson.ObjectIdHex(articleId)})
 }
