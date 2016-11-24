@@ -31,15 +31,18 @@ func ArticleCreate(w http.ResponseWriter, r *http.Request) {
 		Author:"CDog",
 		Content:"fdsfasdfaswerfohiszhfjl;askdjfoiasuerfopuaehrfo;vilqeuy4rfoisargheudpifoiaerhslifo;iawquheblrjfh",
 	}
-	params := services.PostParams{Request:r, Patterns: services.FieldPattern{
-		"title":map[string]interface{}{
+	params := services.PostParams{Request:r, Rules: services.FieldRules{
+		"title":services.FieldRule{
 			"required":true,
+			"type":"string",
 		},
-		"author":map[string]interface{}{
+		"author":services.FieldRule{
 			"required":true,
+			"type":"string",
 		},
-		"content":map[string]interface{}{
+		"content":services.FieldRule{
 			"required":true,
+			"type":"string",
 		},
 	}}
 	if err := params.Valid(); err != nil {

@@ -11,13 +11,9 @@ func completeRequest(err error, okData interface{}, w http.ResponseWriter, r *ht
 	encoder := json.NewEncoder(w)
 	if err != nil {
 		log.Print(err)
-		errorDetail := Model.Errors[err.Error()]
-		if errorDetail.HttpCode != 0 {
-			w.WriteHeader(errorDetail.HttpCode)
-			encoder.Encode(errorDetail)
-		} else {
-			w.WriteHeader(http.StatusInternalServerError)
-		}
+		errorDetail := Model.GetErrorDetail(err)
+		w.WriteHeader(errorDetail.HttpCode)
+		encoder.Encode(errorDetail)
 	} else {
 		if okData == nil {
 			w.WriteHeader(http.StatusNoContent)

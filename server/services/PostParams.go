@@ -7,11 +7,12 @@ import (
 	"errors"
 )
 
-type FieldPattern map[string](map[string]interface{})
+type FieldRule  map[string]interface{}
+type FieldRules map[string]FieldRule
 
 type PostParams struct {
 	Request    *http.Request
-	Patterns   FieldPattern
+	Rules      FieldRules
 	parsedData map[string]interface{}
 	valid      bool
 }
@@ -20,11 +21,31 @@ func (pp *PostParams)doValid(name *string, value *interface{}, con *string, conV
 	switch *con{
 	case "required":
 		if str, ok := (*value).(string); (*conVal).(bool) && (*value == nil || (ok && len(str) == 0)) {
-			fmt.Printf(*name, *value, *con, *conVal)
-			return errors.New("paramErr.validFail")
+			return fmt.Errorf("paramErr.validFail.required/*/%s", *name)
+		}
+	case "type":
+		switch (*value).(type){
+		case string:
+			if *conVal != "string" {
+				return fmt.Errorf("paramErr.validFail.type/*/%s", *name)
+			}
+		case uint8, uint16, uint32, uint64, int8, int16, int32, int64, float32, float64:
+			if *conVal != "number" {
+				return fmt.Errorf("paramErr.validFail.type/*/%s", *name)
+			}
+		case bool:
+			if *conVal != "boolean" {
+				return fmt.Errorf("paramErr.validFail.type/*/%s", *name)
+			}
+		case nil:{
+			return nil
+		}
+		default:
+			fmt.Println(*name, *value)
+			return errors.New("paramErr.validFail/*/Not Support Type")
 		}
 	default:
-		return errors.New("paramErr.validFail")
+		return errors.New("paramErr.validFail/*/Not Support Rule")
 	}
 	return nil
 }
@@ -34,7 +55,7 @@ func (pp *PostParams)parse() {
 }
 
 func (pp *PostParams) validParam(name string) error {
-	conditions := pp.Patterns[name]
+	conditions := pp.Rules[name]
 	value := pp.parsedData[name]
 	for con, conVal := range conditions {
 		if err := pp.doValid(&name, &value, &con, &conVal); err != nil {
@@ -46,8 +67,7 @@ func (pp *PostParams) validParam(name string) error {
 
 func (pp *PostParams)Valid() error {
 	pp.parse()
-	fmt.Println(pp.parsedData)
-	for key := range pp.Patterns {
+	for key := range pp.Rules {
 		if err := pp.validParam(key); err != nil {
 			return err
 		}
@@ -56,7 +76,7 @@ func (pp *PostParams)Valid() error {
 	return nil
 }
 func (pp *PostParams)Get(key string) interface{} {
-	if pp.Patterns[key] != nil {
+	if pp.Rules[key] != nil {
 		return pp.parsedData[key]
 	} else {
 		return nil
