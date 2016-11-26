@@ -8,7 +8,7 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) (error, interface{}) {
-	session, err := services.SessionMgr.SessionStart(w, r, false)
+	session, err := services.SessionMgr.SessionStart(w, r, true)
 	if err != nil {
 		return errors.New("auth.needSession"), nil
 	}

@@ -8,6 +8,6 @@ import (
 var SessionMgr *session.SessionManager
 
 func init() {
-	SessionMgr, _ = session.NewSessionManager("memory", "moeMisaka", 3600)
+	SessionMgr, _ = session.NewSessionManager("memory", "X-Stella", 3600, true)
 	go SessionMgr.GC()
 }

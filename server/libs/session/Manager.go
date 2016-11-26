@@ -17,14 +17,15 @@ type SessionManager struct {
 	lock        sync.Mutex
 	provider    Provider
 	maxLifeTime int64
+	useHeader   bool
 }
 
-func NewSessionManager(providerName, cookieName string, maxLifeTime int64) (*SessionManager, error) {
+func NewSessionManager(providerName, cookieName string, maxLifeTime int64, useHeader bool) (*SessionManager, error) {
 	provider, ok := providers[providerName]
 	if !ok {
 		return nil, fmt.Errorf("Unknown Session Provide %s", providerName)
 	}
-	return &SessionManager{provider: provider, cookieName: cookieName, maxLifeTime: maxLifeTime}, nil
+	return &SessionManager{provider: provider, cookieName: cookieName, maxLifeTime: maxLifeTime, useHeader: useHeader}, nil
 }
 
 func (m *SessionManager) sessionId() string {
@@ -34,22 +35,49 @@ func (m *SessionManager) sessionId() string {
 	}
 	return base64.URLEncoding.EncodeToString(b)
 }
+func (m *SessionManager) getSid(w http.ResponseWriter, r *http.Request) (sid string, err error) {
+	var value string
+	if m.useHeader {
+		value = r.Header.Get(m.cookieName)
+		fmt.Println(r.Header.Get(m.cookieName))
+	}
+	if value == "" {
+		var cookie *http.Cookie
+		cookie, err = r.Cookie(m.cookieName)
+		if err != nil {
+			return
+		}
+		value = cookie.Value
+	}
+	if value == "" {
+		err = errors.New("NoSession")
+	} else {
+		sid, err = url.QueryUnescape(value)
+	}
+	return
+}
+
+func (m *SessionManager) setSid(sid string, w http.ResponseWriter, r *http.Request) {
+	cookie := http.Cookie{Name: m.cookieName, Value: url.QueryEscape(sid), Path: "/", MaxAge: int(m.maxLifeTime)}
+	http.SetCookie(w, &cookie)
+	if m.useHeader {
+		w.Header().Set(m.cookieName, sid)
+	}
+}
 
 func (m *SessionManager) SessionStart(w http.ResponseWriter, r *http.Request, createNew bool) (session Session, err error) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
-	cookie, err := r.Cookie(m.cookieName)
-	if err != nil || cookie.Value == "" {
+	sid, sidErr := m.getSid(w, r)
+	if sidErr != nil {
 		if createNew {
-			sid := m.sessionId()
+			sid = m.sessionId()
 			session, _ = m.provider.SessionInit(sid)
-			cookie := http.Cookie{Name: m.cookieName, Value: url.QueryEscape(sid), Path: "/", MaxAge: int(m.maxLifeTime)}
-			http.SetCookie(w, &cookie)
+			m.setSid(sid, w, r)
 		} else {
 			err = errors.New("NoSession")
 		}
 	} else {
-		sid, _ := url.QueryUnescape(cookie.Value)
 		session, err = m.provider.SessionRead(sid)
 		if err != nil && createNew {
 			session, _ = m.provider.SessionInit(sid)
