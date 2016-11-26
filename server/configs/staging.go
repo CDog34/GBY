@@ -1,15 +1,15 @@
 package config
 
 import (
-	"os"
 	"fmt"
+	"os"
 )
 
 var configStaging = ConfigRule{
-	"listenAddr":fmt.Sprintf(":%s", string(os.Getenv("GBY_LISTEN_PORT"))),
+	"listenAddr": fmt.Sprintf(":%s", string(os.Getenv("GBY_LISTEN_PORT"))),
 
-	"dbUrl":  "localhost",
-	"dbName": "GBY",
+	"dbUrl":  os.Getenv("MONGODB_CONNECTION"),
+	"dbName": os.Getenv("MONGODB_INSTANCE_NAME"),
 
 	"sessionProvider": "memory",
 }
