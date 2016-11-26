@@ -39,7 +39,6 @@ func (m *SessionManager) getSid(w http.ResponseWriter, r *http.Request) (sid str
 	var value string
 	if m.useHeader {
 		value = r.Header.Get(m.cookieName)
-		fmt.Println(r.Header.Get(m.cookieName))
 	}
 	if value == "" {
 		var cookie *http.Cookie

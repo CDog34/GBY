@@ -3,6 +3,7 @@ package services
 import (
 	"gopkg.in/mgo.v2"
 	//"gopkg.in/mgo.v2/bson"
+	"github.com/CDog34/GBY/server/configs"
 )
 
 type Database struct {
@@ -12,9 +13,9 @@ type Database struct {
 }
 
 var DBService = Database{
-	url:"localhost",
-	dbName:"GBY_DEV",
-};
+	url:    config.Get("dbUrl").(string),
+	dbName: config.Get("dbName").(string),
+}
 
 func hasPanic(f func()) (b bool) {
 	defer func() {
