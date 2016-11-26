@@ -1,9 +1,10 @@
 package memory
 
 import (
-	"sync"
 	"container/list"
 	"github.com/CDog34/GBY/server/libs/session"
+	"github.com/pkg/errors"
+	"sync"
 	"time"
 )
 
@@ -17,7 +18,7 @@ func (p *Provider) SessionInit(sid string) (session.Session, error) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 	v := make(map[interface{}]interface{}, 0)
-	newSession := &SessionStore{sid:sid, timeAccessed:time.Now(), value:v}
+	newSession := &SessionStore{sid: sid, timeAccessed: time.Now(), value: v}
 	element := p.list.PushBack(newSession)
 	p.sessions[sid] = element
 	return newSession, nil
@@ -27,8 +28,7 @@ func (p *Provider) SessionRead(sid string) (session.Session, error) {
 	if element, ok := p.sessions[sid]; ok {
 		return element.Value.(*SessionStore), nil
 	} else {
-		sess, err := p.SessionInit(sid)
-		return sess, err
+		return nil, errors.New("NoSuchSession")
 	}
 }
 func (p *Provider) SessionDestroy(sid string) error {
@@ -69,4 +69,4 @@ func (p *Provider) SessionUpdate(sid string) error {
 	return nil
 }
 
-var memoryProvider = &Provider{list:list.New()}
+var memoryProvider = &Provider{list: list.New()}

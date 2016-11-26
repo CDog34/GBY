@@ -1,13 +1,14 @@
 package session
 
 import (
-	"sync"
-	"fmt"
-	"io"
 	"crypto/rand"
 	"encoding/base64"
+	"fmt"
+	"github.com/pkg/errors"
+	"io"
 	"net/http"
 	"net/url"
+	"sync"
 	"time"
 )
 
@@ -23,7 +24,7 @@ func NewSessionManager(providerName, cookieName string, maxLifeTime int64) (*Ses
 	if !ok {
 		return nil, fmt.Errorf("Unknown Session Provide %s", providerName)
 	}
-	return &SessionManager{provider:provider, cookieName:cookieName, maxLifeTime:maxLifeTime}, nil
+	return &SessionManager{provider: provider, cookieName: cookieName, maxLifeTime: maxLifeTime}, nil
 }
 
 func (m *SessionManager) sessionId() string {
@@ -34,18 +35,26 @@ func (m *SessionManager) sessionId() string {
 	return base64.URLEncoding.EncodeToString(b)
 }
 
-func (m *SessionManager) SessionStart(w http.ResponseWriter, r *http.Request) (session Session) {
+func (m *SessionManager) SessionStart(w http.ResponseWriter, r *http.Request, createNew bool) (session Session, err error) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 	cookie, err := r.Cookie(m.cookieName)
 	if err != nil || cookie.Value == "" {
-		sid := m.sessionId()
-		session, _ = m.provider.SessionInit(sid)
-		cookie := http.Cookie{Name:m.cookieName, Value:url.QueryEscape(sid), Path:"/", MaxAge:int(m.maxLifeTime)}
-		http.SetCookie(w, &cookie)
+		if createNew {
+			sid := m.sessionId()
+			session, _ = m.provider.SessionInit(sid)
+			cookie := http.Cookie{Name: m.cookieName, Value: url.QueryEscape(sid), Path: "/", MaxAge: int(m.maxLifeTime)}
+			http.SetCookie(w, &cookie)
+		} else {
+			err = errors.New("NoSession")
+		}
 	} else {
 		sid, _ := url.QueryUnescape(cookie.Value)
-		session, _ = m.provider.SessionRead(sid)
+		session, err = m.provider.SessionRead(sid)
+		if err != nil && createNew {
+			session, _ = m.provider.SessionInit(sid)
+			err = nil
+		}
 	}
 	return
 }
@@ -59,7 +68,7 @@ func (m *SessionManager) SessionDestroy(w http.ResponseWriter, r *http.Request) 
 		defer m.lock.Unlock()
 		m.provider.SessionDestroy(cookie.Value)
 		expiration := time.Now()
-		cookie := &http.Cookie{Name:m.cookieName, Path:"/", Expires:expiration, MaxAge:-1}
+		cookie := &http.Cookie{Name: m.cookieName, Path: "/", Expires: expiration, MaxAge: -1}
 		http.SetCookie(w, cookie)
 	}
 
