@@ -11,6 +11,13 @@ type Database struct {
 	dbName  string
 	session *mgo.Session
 }
+type DBSession struct {
+	session *mgo.Session
+}
+
+func (dbs *DBSession) Close() {
+	dbs.session.Close()
+}
 
 var DBService = Database{
 	url:    config.Get("dbUrl").(string),
@@ -26,7 +33,7 @@ func hasPanic(f func()) (b bool) {
 	f()
 	return
 }
-func (db *Database) getSession() *mgo.Session {
+func (db *Database) getSession() *DBSession {
 	if db.session != nil {
 		isBroken := hasPanic(func() {
 			err := db.session.Ping()
@@ -35,48 +42,49 @@ func (db *Database) getSession() *mgo.Session {
 			}
 		})
 		if !isBroken {
-			return db.session
+			return &DBSession{db.session.Copy()}
 		}
 	}
-	session, err := mgo.Dial(db.url)
+	dbSession, err := mgo.Dial(db.url)
 	if err != nil {
 		panic(err)
 	}
-	db.session = session
-	return session
+	db.session = dbSession
+	return &DBSession{db.session.Copy()}
 }
 
-func (db *Database) selectCollection(collection string) *mgo.Collection {
-	dbSession := db.getSession()
+func (db *Database) selectCollection(collection string) (*mgo.Collection, *DBSession) {
+	sessionWrapper := db.getSession()
+	dbSession := sessionWrapper.session
 	dbInstance := dbSession.DB(db.dbName)
 	dbCollection := dbInstance.C(collection)
-	return dbCollection
+	return dbCollection, sessionWrapper
 }
 
 func (db *Database) Close() {
 	db.session.Close()
 }
 
-func (db *Database) Create(collection string, data interface{}) error {
-	dbCollection := db.selectCollection(collection)
+func (db *Database) Create(collection string, data interface{}) (error, *DBSession) {
+	dbCollection, dbSession := db.selectCollection(collection)
 	err := dbCollection.Insert(data)
-	return err
+	return err, dbSession
 }
 
-func (db *Database) Retrieve(collection string, query map[string]interface{}) *mgo.Query {
-	dbCollection := db.selectCollection(collection)
+func (db *Database) Retrieve(collection string, query map[string]interface{}) (*mgo.Query, *DBSession) {
+	dbCollection, dbSession := db.selectCollection(collection)
 	result := dbCollection.Find(query)
-	return result
+	return result, dbSession
 }
 
-func (db *Database) Update(collection string, query map[string]interface{}, data interface{}) error {
-	dbCollection := db.selectCollection(collection)
+func (db *Database) Update(collection string, query map[string]interface{}, data interface{}) (error, *DBSession) {
+	dbCollection, dbSession := db.selectCollection(collection)
 	result := dbCollection.Update(query, data)
-	return result
+	return result, dbSession
 }
 
-func (db *Database) Delete(collection string, query map[string]interface{}) error {
-	dbCollection := db.selectCollection(collection)
+func (db *Database) Delete(collection string, query map[string]interface{}) (error, *DBSession) {
+	dbCollection, dbSession := db.selectCollection(collection)
 	result := dbCollection.Remove(query)
-	return result
+	return result, dbSession
 }

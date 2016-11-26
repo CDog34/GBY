@@ -1,29 +1,29 @@
 package Model
 
 import (
-	"time"
+	"errors"
 	. "github.com/CDog34/GBY/server/services"
 	"gopkg.in/mgo.v2/bson"
-	"errors"
+	"time"
 )
 
 const articleCollectionName = "article"
 
 type Article struct {
 	Id       bson.ObjectId `json:"id" bson:"_id,omitempty"`
-	Title    string `json:"title"`
-	UpdateAt time.Time `json:"updateAt"`
-	Author   string `json:"author"`
-	Content  string `json:"content"`
-	Deleted  bool `json:"deleted"`
+	Title    string        `json:"title"`
+	UpdateAt time.Time     `json:"updateAt"`
+	Author   string        `json:"author"`
+	Content  string        `json:"content"`
+	Deleted  bool          `json:"deleted"`
 }
 
 type Articles []Article
 
 func (a *Article) List() (error, Articles) {
 	db := &DBService
-	query := db.Retrieve(articleCollectionName, nil)
-	//defer db.Close()
+	query, dbSession := db.Retrieve(articleCollectionName, nil)
+	defer dbSession.Close()
 	result := make(Articles, 0, 10)
 	err := query.All(&result)
 	return err, result
@@ -32,10 +32,14 @@ func (a *Article) List() (error, Articles) {
 func (a *Article) Save() error {
 	db := &DBService
 	if a.Id.Valid() {
-		return db.Update(articleCollectionName, bson.M{"_id":a.Id}, a)
+		res, dbs := db.Update(articleCollectionName, bson.M{"_id": a.Id}, a)
+		defer dbs.Close()
+		return res
 	} else {
 		a.Id = bson.NewObjectId()
-		return db.Create(articleCollectionName, a)
+		res, dbs := db.Create(articleCollectionName, a)
+		defer dbs.Close()
+		return res
 	}
 }
 
@@ -44,7 +48,9 @@ func (a *Article) GetOne(articleId string) error {
 	if !bson.IsObjectIdHex(articleId) {
 		return errors.New("paramErr.inValidObjectId/*/" + articleId)
 	}
-	return db.Retrieve(articleCollectionName, bson.M{"_id":bson.ObjectIdHex(articleId)}).One(a)
+	res, dbs := db.Retrieve(articleCollectionName, bson.M{"_id": bson.ObjectIdHex(articleId)})
+	defer dbs.Close()
+	return res.One(a)
 }
 
 func (a *Article) MarkDeleted(articleId string) error {
@@ -70,5 +76,7 @@ func (a *Article) HardDelete(articleId string) error {
 	if !bson.IsObjectIdHex(articleId) {
 		return errors.New("paramErr.inValidObjectId/*/" + articleId)
 	}
-	return db.Delete(articleCollectionName, bson.M{"_id":bson.ObjectIdHex(articleId)})
+	res, dbs := db.Delete(articleCollectionName, bson.M{"_id": bson.ObjectIdHex(articleId)})
+	defer dbs.Close()
+	return res
 }
