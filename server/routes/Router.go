@@ -1,11 +1,14 @@
-package services
+package Route
 
 import (
-	"github.com/gorilla/mux"
-	"net/http"
 	"encoding/json"
-	"log"
 	"github.com/CDog34/GBY/server/errors"
+	"github.com/CDog34/GBY/server/models"
+	. "github.com/CDog34/GBY/server/services"
+	"github.com/gorilla/mux"
+	"github.com/pkg/errors"
+	"log"
+	"net/http"
 )
 
 type JsonHandlerFunc func(http.ResponseWriter, *http.Request) (error, interface{})
@@ -18,6 +21,7 @@ type Route struct {
 	PureHandleFunc http.HandlerFunc
 	Queries        []string
 	NoJson         bool
+	Roles          []int
 	handler        http.HandlerFunc
 }
 type Routes []Route
@@ -47,6 +51,32 @@ func wrapJsonHandler(inner JsonHandlerFunc) http.HandlerFunc {
 		completeRequest(err, rst, w, r)
 	})
 }
+func checkRoleWrapper(handlerFunc JsonHandlerFunc, roles []int) JsonHandlerFunc {
+	if roles == nil {
+		return handlerFunc
+	}
+	return func(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+		sess, err := SessionMgr.SessionStart(w, r, false)
+		if err != nil {
+			return err, nil
+		}
+		if sess.Get("user") == nil {
+			return errors.New("auth.notLogin"), nil
+		}
+		allow := false
+		for _, val := range roles {
+			if val == sess.Get("user").(Model.User).Role {
+				allow = true
+				break
+			}
+		}
+		if !allow {
+			return errors.New("auth.notAllow"), nil
+		}
+		servErr, servRst := handlerFunc(w, r)
+		return servErr, servRst
+	}
+}
 
 func NewRouter(appRoute *Routes) *mux.Router {
 
@@ -54,13 +84,13 @@ func NewRouter(appRoute *Routes) *mux.Router {
 	for _, route := range *appRoute {
 
 		if !route.NoJson {
-			route.handler = wrapJsonHandler(route.HandleFunc)
+			route.handler = wrapJsonHandler(checkRoleWrapper(route.HandleFunc, route.Roles))
 		} else {
 			route.handler = http.HandlerFunc(route.PureHandleFunc)
 		}
 
 		rule := router.
-		Methods(route.Method).
+			Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
 			Handler(Logger(route.handler, route.Name))

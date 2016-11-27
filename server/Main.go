@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/CDog34/GBY/server/configs"
 	. "github.com/CDog34/GBY/server/routes"
-	. "github.com/CDog34/GBY/server/services"
 	"log"
 	"net/http"
 )

@@ -2,7 +2,6 @@ package Route
 
 import (
 	. "github.com/CDog34/GBY/server/handlers"
-	. "github.com/CDog34/GBY/server/services"
 )
 
 var IndexRoutes = Routes{
@@ -14,8 +13,16 @@ var IndexRoutes = Routes{
 	},
 }
 
-var RouteRules = append(
+func mergeRouteRules(args ...Routes) Routes {
+	var result Routes
+	for _, val := range args {
+		result = append(result, val...)
+	}
+	return result
+}
+
+var RouteRules = mergeRouteRules(
 	IndexRoutes,
-	append(ArticleRoutes,
-		AuthRoutes...)...,
+	ArticleRoutes,
+	AuthRoutes,
 )

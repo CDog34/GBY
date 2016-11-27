@@ -28,7 +28,7 @@ func (p *Provider) SessionRead(sid string) (session.Session, error) {
 	if element, ok := p.sessions[sid]; ok {
 		return element.Value.(*SessionStore), nil
 	} else {
-		return nil, errors.New("NoSuchSession")
+		return nil, errors.New("auth.needSession")
 	}
 }
 func (p *Provider) SessionDestroy(sid string) error {

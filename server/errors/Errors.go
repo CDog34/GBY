@@ -24,6 +24,8 @@ var appErrors = map[string]ErrorDetail{
 	"auth.authFail":          {http.StatusNotFound, 30002, "authFail"},
 	"auth.emailAlreadyExist": {http.StatusBadRequest, 30003, "emailAlreadyExist"},
 	"auth.passwordNotMatch":  {http.StatusBadRequest, 30004, "passwordNotMatch"},
+	"auth.notLogin":          {http.StatusUnauthorized, 30005, "notLogin"},
+	"auth.notAllow":          {http.StatusUnauthorized, 30006, "notAllow"},
 }
 
 func GetErrorDetail(err error) ErrorDetail {
