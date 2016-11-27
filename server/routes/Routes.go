@@ -25,4 +25,5 @@ var RouteRules = mergeRouteRules(
 	IndexRoutes,
 	ArticleRoutes,
 	AuthRoutes,
+	AdminRoutes,
 )
