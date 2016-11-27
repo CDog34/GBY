@@ -7,7 +7,7 @@ type ConfigRule map[string]interface{}
 var env string
 
 var configBase = ConfigRule{
-	"sessionLifeTime": 3600,
+	"sessionLifeTime": 60 * 60 * 24 * 7,
 	"sessionName":     "X-Stella",
 }
 

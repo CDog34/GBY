@@ -20,7 +20,10 @@ var appErrors = map[string]ErrorDetail{
 	"paramErr.validFail.type":     {http.StatusBadRequest, 20002, "ParamsValidationFail"},
 	"paramErr.inValidObjectId":    {http.StatusNotFound, 20003, "inValidObjectId"},
 
-	"auth.needSession": {http.StatusUnauthorized, 30001, "needSession"},
+	"auth.needSession":       {http.StatusUnauthorized, 30001, "needSession"},
+	"auth.authFail":          {http.StatusNotFound, 30002, "authFail"},
+	"auth.emailAlreadyExist": {http.StatusBadRequest, 30003, "emailAlreadyExist"},
+	"auth.passwordNotMatch":  {http.StatusBadRequest, 30004, "passwordNotMatch"},
 }
 
 func GetErrorDetail(err error) ErrorDetail {

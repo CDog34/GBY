@@ -7,14 +7,15 @@ import (
 
 var IndexRoutes = Routes{
 	Route{
-		Name:"Index",
-		Method:"GET",
-		Pattern:"/",
-		HandleFunc:Index,
+		Name:       "Index",
+		Method:     "GET",
+		Pattern:    "/",
+		HandleFunc: Index,
 	},
 }
 
 var RouteRules = append(
 	IndexRoutes,
-	ArticleRoutes...
+	append(ArticleRoutes,
+		AuthRoutes...)...,
 )
