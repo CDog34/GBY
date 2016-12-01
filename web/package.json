@@ -15,8 +15,10 @@
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false"
   },
-  "repository": "",
-  "keywords": [],
+  "repository": "https://github.com/CDog34/GBY",
+  "keywords": [
+    "blog"
+  ],
   "author": {
     "name": "Junquan Cao",
     "email": "i@cdog.me",
