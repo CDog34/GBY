@@ -4,6 +4,7 @@ import (
 	"container/list"
 	"github.com/CDog34/GBY/server/libs/session"
 	"github.com/pkg/errors"
+	"log"
 	"sync"
 	"time"
 )
@@ -41,10 +42,15 @@ func (p *Provider) SessionDestroy(sid string) error {
 }
 
 func (p *Provider) SessionGC(maxLifeTime int64) {
+	log.Println("start GC")
 	p.lock.Lock()
-	defer p.lock.Unlock()
+	defer func() {
+		log.Println("complete GC")
+		p.lock.Unlock()
+	}()
 	for {
 		element := p.list.Back()
+		log.Println(element)
 		if element == nil {
 			break
 		}
