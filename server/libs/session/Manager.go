@@ -106,7 +106,7 @@ func (m *SessionManager) GC() {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 	m.provider.SessionGC(m.maxLifeTime)
-	time.AfterFunc(time.Duration(m.maxLifeTime), func() {
+	time.AfterFunc(time.Duration(m.maxLifeTime*1000*1000), func() {
 		m.GC()
 	})
 }
