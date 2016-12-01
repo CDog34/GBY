@@ -9,7 +9,7 @@ EXPOSE 8000
 
 COPY . $WD/
 RUN cd $WD/ && pwd && ls
-RUN npm install -g webpack
+#RUN npm install -g webpack
 RUN npm install
 RUN npm run dist
 CMD ["npm", "start"]

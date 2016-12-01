@@ -3,6 +3,6 @@ FROM daocloud.io/nginx
 RUN mkdir /wwwroot
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY proj/application /wwwroot/
+COPY proj/dist/ /wwwroot/
 
 RUN service nginx start
