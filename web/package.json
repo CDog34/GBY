@@ -64,9 +64,13 @@
     "webpack-dev-server": "^1.12.0"
   },
   "dependencies": {
+    "autoprefixer": "^6.5.3",
     "core-js": "^2.0.0",
+    "node-sass": "^3.13.0",
     "normalize.css": "^4.0.0",
+    "postcss-loader": "^1.1.1",
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "sass-loader": "^4.0.2"
   }
 }
