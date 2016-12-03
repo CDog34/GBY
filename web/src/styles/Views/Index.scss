@@ -1,0 +1,21 @@
+@import "../colors";
+
+.index {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .title {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  h1 {
+    color: $color-text-normal;
+  }
+
+  span {
+    color: $color-text-lighter;
+  }
+}
