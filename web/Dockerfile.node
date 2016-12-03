@@ -7,9 +7,11 @@ WORKDIR $WD
 
 EXPOSE 8000
 
+COPY package.json $WD/
+RUN npm install
+
 COPY . $WD/
 RUN cd $WD/ && pwd && ls
 #RUN npm install -g webpack
-RUN npm install
 RUN npm run dist
 CMD ["npm", "start"]
