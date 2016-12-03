@@ -1,0 +1,28 @@
+saya-mongo:
+  image: daocloud.io/library/mongo:3.0.7
+  privileged: false
+  restart: always
+  volumes:
+  - /data/gbyDb:/data/db
+saya-gby:
+  image: daocloud.io/cdog/gby-be-demo:release-staging-8535652
+  privileged: false
+  restart: always
+  links:
+  - saya-mongo:mongodb
+  environment:
+  - MONGODB_INSTANCE_NAME=saya-gby
+  - MONGODB_CONNECTION=mongodb
+saya-gby-fe:
+  image: daocloud.io/cdog/gby-fe:release-staging-8535652
+  privileged: false
+  restart: always
+saya-proxy:
+  image: daocloud.io/cdog/gby-proxy:0.0.2-d0fd987
+  privileged: false
+  restart: always
+  links:
+  - saya-gby:backend
+  - saya-gby-fe:frontend
+  ports:
+  - 80:80
