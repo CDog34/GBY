@@ -10,8 +10,6 @@ saya-gby:
   restart: always
   links:
   - saya-mongo:mongodb
-  ports:
-  - 8105
   environment:
   - MONGODB_INSTANCE_NAME=saya-gby
   - MONGODB_CONNECTION=mongodb
@@ -19,15 +17,12 @@ saya-gby-fe:
   image: daocloud.io/cdog/gby-fe:release-staging-8535652
   privileged: false
   restart: always
-  ports:
-  - 8000
 saya-proxy:
-  image: daocloud.io/cdog/gby-proxy
+  image: daocloud.io/cdog/gby-proxy:0.0.2-d0fd987
   privileged: false
   restart: always
   links:
-    - saya-gby:backend
-    - saya-gby-fe:frontend
+  - saya-gby:backend
+  - saya-gby-fe:frontend
   ports:
   - 80:80
-
