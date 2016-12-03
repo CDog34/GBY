@@ -15,7 +15,7 @@ class Action extends React.Component {
   }
 }
 
-export class AppComponent extends React.Component {
+export class Index extends React.Component {
   componentWillMount() {
     document.title = '首页-西道の狗窝';
   }
