@@ -1,6 +1,7 @@
 'use strict';
 let path = require('path');
 let defaultSettings = require('./defaults');
+const autoprefixer = require('autoprefixer');
 
 // Additional npm or bower modules to include in builds
 // Add all foreign plugins you may need into this array
@@ -39,5 +40,6 @@ module.exports = {
       'react/lib/ReactMount': 'react-dom/lib/ReactMount'
     }
   },
-  module: {}
+  module: {},
+  postcss: [autoprefixer({browsers: ['last 2 versions']})]
 };
