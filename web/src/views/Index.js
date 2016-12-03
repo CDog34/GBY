@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from '../styles/Views/Index.scss';
+import {Link} from 'react-router';
 
 class Action extends React.Component {
   static propTypes = {
     text: React.PropTypes.string,
-    href: React.PropTypes.string
+    href: React.PropTypes.string,
+    link: React.PropTypes.string
   };
 
   render() {
-    return <a className={styles.action} href={this.props.href}>
-      {this.props.text}
-
-    </a>
+    if (this.props.link) return <Link to={this.props.link} className={styles.action}>{this.props.text}</Link>;
+    return <a href={this.props.href} className={styles.action}>{this.props.text}</a>;
   }
 }
 
@@ -29,8 +29,8 @@ export class Index extends React.Component {
         </div>
         <div className={styles.actions}>
           <Action text="首页" href="http://cdog.me"/>
-          <Action text="文章"/>
-          <Action text="关于"/>
+          <Action text="文章" link="/articleList"/>
+          <Action text="关于" link="/about"/>
         </div>
         <p className={styles.footer}>
           Power By <a href="https://github.com/CDog34/GBY" target="_blank">GBY</a>
