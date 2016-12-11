@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/Views/ArticleList.scss';
-import {Link} from 'react-router';
+import {BackButton} from '../components/BackButton';
 
 
 class ArticleItem extends React.Component {
@@ -33,8 +33,9 @@ export class ArticleList extends React.Component {
           <ArticleItem/>
           <ArticleItem/>
           <ArticleItem/>
-
-          <Link to="/" className={styles.back}>← 返回</Link>
+          <div className={styles.back}>
+            <BackButton to="/"/>
+          </div>
         </div>
       </div>
     );

@@ -40,24 +40,9 @@
       }
     }
     .back {
-      display: block;
-      text-decoration: none;
-      color: $color-text-lighter;
-      font-size: 18px;
-      line-height: 48px;
-      width: 96px;
-      height: 48px;
-      border-radius: 24px;
-      text-align: center;
-      border: 1px solid $color-divider;
-      margin: 96px auto;
-      transition: all .5s;
-
-      &:hover {
-        background-color: $color-text-lighter;
-        border: solid 1px transparent;
-        color: $color-white;
-      }
+      margin: 96px 0;
+      display: flex;
+      justify-content: center;
     }
   }
 }
