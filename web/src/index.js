@@ -16,4 +16,4 @@ ReactDOM.render((<Router history={hashHistory}>
       <Route component={ArticleList} path="/articleList"/>
     </Route>
   </Router>
-), document.body);
+), document.getElementById('app-content'));

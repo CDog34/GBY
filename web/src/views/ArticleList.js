@@ -1,6 +1,19 @@
 import React from 'react';
-import styles from '../styles/Views/Index.scss';
+import styles from '../styles/Views/ArticleList.scss';
+import {Link} from 'react-router';
 
+
+class ArticleItem extends React.Component {
+  render() {
+    return <article className={styles.listItem}>
+      <h1>震撼世界：中一颗卫星</h1>
+      <div className={styles.articleMeta}>
+        <p className={styles.author}>西道</p>
+        <p className={styles.time}>1995年11月23日 13:20</p>
+      </div>
+    </article>;
+  }
+}
 
 export class ArticleList extends React.Component {
   componentWillMount() {
@@ -9,8 +22,20 @@ export class ArticleList extends React.Component {
 
   render() {
     return (
-      <div className={styles.index}>
-        <p>～ 啊...好想吃火锅啊 ～</p>
+      <div className={styles.articleList}>
+        <div className={styles.listWrapper}>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+
+          <Link to="/" className={styles.back}>← 返回</Link>
+        </div>
       </div>
     );
   }

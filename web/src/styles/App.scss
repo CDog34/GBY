@@ -1,5 +1,5 @@
 /* Base Application Styles */
-body {
+#app-content {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -9,6 +9,5 @@ body {
 
 #app {
   flex: 1;
-  max-width: 1170px;
 }
 
