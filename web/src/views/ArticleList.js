@@ -9,7 +9,7 @@ class ArticleItem extends React.Component {
   render() {
     return <Link to={`/article/${'testArticle'}`}>
       <article className={styles.listItem}>
-        <h1>震撼世界：中一颗卫星</h1>
+        <h1>美商务部终裁中国产大型洗衣机存在倾销行为</h1>
         <div className={styles.articleMeta}>
           <p className={styles.author}>西道</p>
           <p className={styles.time}>1995年11月23日 13:20</p>
