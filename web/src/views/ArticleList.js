@@ -1,6 +1,23 @@
 import React from 'react';
-import styles from '../styles/Views/Index.scss';
+import {Link} from 'react-router';
+import styles from '../styles/Views/ArticleList.scss';
+import {BackButton} from '../components/BackButton';
+import {PageContent} from '../components/PageContent';
 
+
+class ArticleItem extends React.Component {
+  render() {
+    return <Link to={`/article/${'testArticle'}`}>
+      <article className={styles.listItem}>
+        <h1>美商务部终裁中国产大型洗衣机存在倾销行为</h1>
+        <div className={styles.articleMeta}>
+          <p className={styles.author}>西道</p>
+          <p className={styles.time}>1995年11月23日 13:20</p>
+        </div>
+      </article>
+    </Link>;
+  }
+}
 
 export class ArticleList extends React.Component {
   componentWillMount() {
@@ -9,9 +26,22 @@ export class ArticleList extends React.Component {
 
   render() {
     return (
-      <div className={styles.index}>
-        <p>～ 啊...好想吃火锅啊 ～</p>
-      </div>
+      <PageContent>
+        <div className={styles.listWrapper}>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <ArticleItem/>
+          <div className={styles.back}>
+            <BackButton to="/"/>
+          </div>
+        </div>
+      </PageContent>
     );
   }
 }
