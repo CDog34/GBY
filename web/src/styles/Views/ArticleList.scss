@@ -1,48 +1,46 @@
 @import "../colors";
 
-.articleList {
-  height: 100vh;
-  overflow-y: auto;
+.listWrapper {
+  padding: 56px 48px;
   box-sizing: border-box;
+  max-width: 710px;
+  margin: 0 auto;
+  a {
+    text-decoration: none;
+  }
 
-  .listWrapper {
-    padding: 56px 48px;
-    box-sizing: border-box;
-    max-width: 710px;
-    margin: 0 auto;
+  .listItem {
+    padding-left: 64px;
+    margin-bottom: 48px;
+    border-left: 4px solid $color-divider;
 
-    .listItem {
-      padding-left: 64px;
-      margin-bottom: 48px;
-      border-left: 4px solid $color-divider;
-
-      h1 {
-        font-size: 30px;
-        margin: 0;
-        color: $color-text-normal;
-      }
-
-      .articleMeta {
-        display: flex;
-        padding-top: 8px;
-
-        > * {
-          margin-top: 0;
-          margin-bottom: 0;
-          color: $color-text-lighter;
-          font-size: 14px;
-        }
-
-        .author {
-          margin-right: 8px;
-        }
-
-      }
+    h1 {
+      font-size: 30px;
+      margin: 0;
+      color: $color-text-normal;
     }
-    .back {
-      margin: 96px 0;
+
+    .articleMeta {
       display: flex;
-      justify-content: center;
+      padding-top: 8px;
+
+      > * {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: $color-text-lighter;
+        font-size: 14px;
+      }
+
+      .author {
+        margin-right: 8px;
+      }
+
     }
   }
+  .back {
+    margin: 96px 0;
+    display: flex;
+    justify-content: center;
+  }
 }
+
