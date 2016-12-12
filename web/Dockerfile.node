@@ -1,17 +1,19 @@
 FROM daocloud.io/node:6.9
 
 ENV WD /proj
+ENV BUILD_ENV staging
 
 RUN mkdir -p $WD
 WORKDIR $WD
 
 EXPOSE 8000
 
+
 COPY package.json $WD/
 RUN npm install
 
 COPY . $WD/
 RUN cd $WD/ && pwd && ls
-#RUN npm install -g webpack
-RUN npm run dist
+RUN npm install -g webpack
+RUN npm run copy & webpack --env=$BUILD_ENV
 CMD ["npm", "start"]

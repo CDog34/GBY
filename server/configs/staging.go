@@ -11,5 +11,6 @@ var configStaging = ConfigRule{
 	"dbUrl":  os.Getenv("MONGODB_CONNECTION"),
 	"dbName": os.Getenv("MONGODB_INSTANCE_NAME"),
 
-	"sessionProvider": "memory",
+	"sessionProvider":                "memory",
+	"accessControlAllowOriginHeader": "http://web.gby.isues.net",
 }
