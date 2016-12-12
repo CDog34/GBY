@@ -93,10 +93,18 @@ func NewRouter(appRoute *Routes) *mux.Router {
 			Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
-			Handler(Logger(route.handler, route.Name))
+			Handler(Logger(CrossDomainHeaders(route.handler), route.Name))
 		if route.Queries != nil {
 			rule.Queries(route.Queries...)
 		}
+		router.
+			Methods("OPTIONS").
+			Path(route.Pattern).
+			Name(route.Name + "opt").
+			Handler(CrossDomainHeaders(func(res http.ResponseWriter, req *http.Request) {
+				res.WriteHeader(http.StatusOK)
+				return
+			}))
 		log.Printf("Setup Route: %s [%s]", route.Name, route.Pattern)
 	}
 	return router

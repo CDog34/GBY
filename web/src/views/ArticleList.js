@@ -3,16 +3,22 @@ import {Link} from 'react-router';
 import styles from '../styles/Views/ArticleList.scss';
 import {BackButton} from '../components/BackButton';
 import {PageContent} from '../components/PageContent';
+import {ArticleService} from '../services/ArticleService';
 
 
 class ArticleItem extends React.Component {
+  static propTypes = {
+    article: React.PropTypes.object
+  };
+
   render() {
-    return <Link to={`/article/${'testArticle'}`}>
+    const article = this.props.article;
+    return <Link to={`/article/${article.id}`}>
       <article className={styles.listItem}>
-        <h1>美商务部终裁中国产大型洗衣机存在倾销行为</h1>
+        <h1>{article.title}</h1>
         <div className={styles.articleMeta}>
-          <p className={styles.author}>西道</p>
-          <p className={styles.time}>1995年11月23日 13:20</p>
+          <p className={styles.author}>{article.author}</p>
+          <p className={styles.time}>{article.updateAt}</p>
         </div>
       </article>
     </Link>;
@@ -20,23 +26,21 @@ class ArticleItem extends React.Component {
 }
 
 export class ArticleList extends React.Component {
-  componentWillMount() {
+  state = {
+    articles: []
+  };
+
+  async componentWillMount() {
     document.title = '文章列表-西道の狗窝';
+    const res = await ArticleService.list();
+    this.setState({articles: res});
   }
 
   render() {
     return (
       <PageContent>
         <div className={styles.listWrapper}>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
-          <ArticleItem/>
+          {this.state.articles.map((article) => <ArticleItem article={article} key={article.id}/>)}
           <div className={styles.back}>
             <BackButton to="/"/>
           </div>
