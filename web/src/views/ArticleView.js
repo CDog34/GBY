@@ -1,5 +1,4 @@
 import React from 'react';
-import {browserHistory} from 'react-router'
 import Moment from 'react-moment';
 import ReactMarkdown from 'react-markdown';
 import styles from '../styles/Views/ArticleView.scss';
@@ -40,7 +39,7 @@ export class ArticleView extends React.Component {
             {article.content && <ReactMarkdown source={article.content}/>}
           </div>
           <div className={styles.back}>
-            <BackButton onClick={() => browserHistory.goBack()}/>
+            <BackButton to="/articleList"/>
           </div>
         </div>
       </PageContent>
