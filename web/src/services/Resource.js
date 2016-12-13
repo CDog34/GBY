@@ -11,13 +11,46 @@ export class Resource {
     get: 'GET'
   };
 
+  static  jsonToQueryString(json) {
+    let isFirst = true;
+    return Object.keys(json).map(function (key) {
+      const prefix = isFirst ? '?' : '';
+      isFirst = false;
+      return prefix + encodeURIComponent(key) + '=' +
+        encodeURIComponent(json[key]);
+    }).join('&');
+  }
+
+  static parseUri(uri, params) {
+    if (!params) return uri;
+    let uriArr = uri.split('/');
+    uriArr = uriArr.map((path) => {
+      if (path[0] === ':') {
+        const res = params[path.slice(1)];
+        delete params[path.slice(1)];
+        return res;
+      }
+      return path;
+    });
+    return uriArr.join('/') + Resource.jsonToQueryString(params);
+  }
+
+  static generateBodyForJson(json) {
+    if (!json) return null;
+    let data = new FormData;
+    data.append('json', JSON.stringify(json));
+    return data;
+  }
+
   constructor(baseUri, methods, constants) {
     this.baseUrl = config.apiBaseUrl + baseUri;
     _.forEach(methods, (value, key) => {
-      this[key] = async() => {
-        return await fetch(this.baseUrl + value.uri, {
+      this[key] = async(uriParams, bodyPayload) => {
+        const parsedUri = Resource.parseUri(value.uri, uriParams);
+        return await fetch(this.baseUrl + parsedUri, {
           method: value.method,
-          headers: Resource.header
+          headers: Resource.header,
+          body: Resource.generateBodyForJson(bodyPayload)
         });
       }
     });
