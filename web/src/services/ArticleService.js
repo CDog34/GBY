@@ -2,11 +2,11 @@ import {ArticleModel} from '../resources/Article';
 export class ArticleService {
   static async list() {
     const res = await ArticleModel.list();
-    return res.json();
+    return await res.json();
   }
 
   static async get(articleId) {
     const res = await ArticleModel.get({articleId: articleId});
-    return res.json();
+    return await res.json();
   }
 }

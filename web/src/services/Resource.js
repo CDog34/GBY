@@ -2,9 +2,17 @@ import config from 'config';
 import _ from 'lodash';
 
 export class Resource {
-  static header = new Headers({
+  private static header = new Headers({
     'X-App-Id': 'GBY-WEB'
   });
+
+  static setHeader(key, value) {
+    Resource.header.set(key, value);
+  }
+
+  static getHeader() {
+    return Resource.header;
+  }
 
   static method = {
     post: 'POST',
@@ -39,9 +47,7 @@ export class Resource {
 
   static generateBodyForJson(json) {
     if (!json) return null;
-    let data = new FormData;
-    data.append('json', JSON.stringify(json));
-    return data;
+    return JSON.stringify(json);
   }
 
   constructor(baseUri, methods, constants) {
@@ -51,10 +57,12 @@ export class Resource {
         const parsedUri = Resource.parseUri(value.uri, uriParams);
         const option = {
           method: value.method,
-          headers: Resource.header
+          headers: Resource.getHeader()
         };
         if (option.method === Resource.method.post || option.method === Resource.method.put) option['body'] = Resource.generateBodyForJson(bodyPayload);
-        return await fetch(this.baseUrl + parsedUri, option);
+        const res = await fetch(this.baseUrl + parsedUri, option);
+        if (!res.ok) throw await res.json();
+        return res;
       }
     });
     _.forEach(constants, (value, key) => this[key] = value)
