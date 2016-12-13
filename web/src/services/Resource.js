@@ -12,8 +12,9 @@ export class Resource {
   };
 
   static  jsonToQueryString(json) {
+    if (!json) return null;
     let isFirst = true;
-    return Object.keys(json).map(function (key) {
+    return _.map(Object.keys(json), function (key) {
       const prefix = isFirst ? '?' : '';
       isFirst = false;
       return prefix + encodeURIComponent(key) + '=' +
