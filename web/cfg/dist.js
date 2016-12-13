@@ -15,6 +15,7 @@ let config = Object.assign({}, baseConfig, {
     path.join(__dirname, '../src/index')
   ],
   cache: false,
+  devtool: 'sourcemap',
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.ProvidePlugin({
