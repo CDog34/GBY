@@ -53,6 +53,11 @@ func AuthLogin(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 }
 
 func AuthNewUser(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+	user := Model.User{}
+	if _, userList := user.List(); len(userList) > 0 {
+		return errors.New("auth.notAllow"), nil
+	}
+
 	params := services.PostParams{Request: r, Rules: UserPostRules}
 	if err := params.Valid(); err != nil {
 		return err, nil
@@ -60,7 +65,6 @@ func AuthNewUser(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 	if params.GetString("password") != params.GetString("passwordConfirm") {
 		return errors.New("auth.passwordNotMatch"), nil
 	}
-	user := Model.User{}
 	user.GetOneByEmail(params.GetString("email"))
 	if user.Id.Valid() {
 		return fmt.Errorf("auth.emailAlreadyExist/*/%s", params.GetString("email")), nil

@@ -4,4 +4,9 @@ export class ArticleService {
     const res = await ArticleModel.list();
     return res.json();
   }
+
+  static async get(articleId) {
+    const res = await ArticleModel.get({articleId: articleId});
+    return res.json();
+  }
 }

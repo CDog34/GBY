@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import Moment from 'react-moment';
 import styles from '../styles/Views/ArticleList.scss';
 import {BackButton} from '../components/BackButton';
 import {PageContent} from '../components/PageContent';
@@ -18,7 +19,8 @@ class ArticleItem extends React.Component {
         <h1>{article.title}</h1>
         <div className={styles.articleMeta}>
           <p className={styles.author}>{article.author}</p>
-          <p className={styles.time}>{article.updateAt}</p>
+          {!!article.updateAt &&
+          <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/></p>}
         </div>
       </article>
     </Link>;

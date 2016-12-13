@@ -22,10 +22,10 @@ type Articles []Article
 
 func (a *Article) List() (error, Articles) {
 	db := &DBService
-	query, dbSession := db.Retrieve(articleCollectionName, nil)
+	query, dbSession := db.Retrieve(articleCollectionName, bson.M{"deleted": false})
 	defer dbSession.Close()
 	result := make(Articles, 0, 10)
-	err := query.All(&result)
+	err := query.Sort("-_id").All(&result)
 	return err, result
 }
 
