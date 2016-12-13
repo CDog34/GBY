@@ -8,7 +8,8 @@ export class Resource {
 
   static method = {
     post: 'POST',
-    get: 'GET'
+    get: 'GET',
+    put: 'PUT'
   };
 
   static  jsonToQueryString(json) {
@@ -48,11 +49,12 @@ export class Resource {
     _.forEach(methods, (value, key) => {
       this[key] = async(uriParams, bodyPayload) => {
         const parsedUri = Resource.parseUri(value.uri, uriParams);
-        return await fetch(this.baseUrl + parsedUri, {
+        const option = {
           method: value.method,
-          headers: Resource.header,
-          body: Resource.generateBodyForJson(bodyPayload)
-        });
+          headers: Resource.header
+        };
+        if (option.method === Resource.method.post || option.method === Resource.method.put) option['body'] = Resource.generateBodyForJson(bodyPayload);
+        return await fetch(this.baseUrl + parsedUri, option);
       }
     });
     _.forEach(constants, (value, key) => this[key] = value)

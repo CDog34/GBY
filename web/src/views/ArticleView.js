@@ -39,7 +39,7 @@ export class ArticleView extends React.Component {
             {article.content && <ReactMarkdown source={article.content}/>}
           </div>
           <div className={styles.back}>
-            <BackButton to="/articleList"/>
+            <BackButton onClick={() => this.props.router.goBack()}/>
           </div>
         </div>
       </PageContent>
