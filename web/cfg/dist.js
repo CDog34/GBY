@@ -12,12 +12,15 @@ let BowerWebpackPlugin = require('bower-webpack-plugin');
 let config = Object.assign({}, baseConfig, {
   entry: [
     'babel-polyfill',
-    'whatwg-fetch',
     path.join(__dirname, '../src/index')
   ],
   cache: false,
   plugins: [
     new webpack.optimize.DedupePlugin(),
+    new webpack.ProvidePlugin({
+      'Promise': 'es6-promise',
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
