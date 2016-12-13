@@ -1,10 +1,13 @@
 import React from 'react';
 import {browserHistory} from 'react-router'
 import Moment from 'react-moment';
+import ReactMarkdown from 'react-markdown';
 import styles from '../styles/Views/ArticleView.scss';
 import {BackButton} from '../components/BackButton';
 import {PageContent} from '../components/PageContent';
 import {ArticleService} from '../services/ArticleService';
+
+require('github-markdown-css');
 
 
 export class ArticleView extends React.Component {
@@ -33,8 +36,8 @@ export class ArticleView extends React.Component {
             {!!article.updateAt &&
             <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/></p>}
           </div>
-          <div className={styles.articleContent}>
-            <p>{article.content}</p>
+          <div className={[styles.articleContent, 'markdown-body'].join(' ')}>
+            {article.content && <ReactMarkdown source={article.content}/>}
           </div>
           <div className={styles.back}>
             <BackButton onClick={() => browserHistory.goBack()}/>
