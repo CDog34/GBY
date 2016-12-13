@@ -28,9 +28,9 @@ export class Index extends React.Component {
           <span>CDog's Kennel</span>
         </div>
         <div className={styles.actions}>
-          <Action text="首页" href="http://cdog.me"/>
           <Action text="文章" link="/articleList"/>
-          <Action text="关于" link="/about"/>
+          <Action text="关于" href="http://cdog.me"/>
+          {/*<Action text="链接" link="/kitusna"/>*/}
         </div>
         <p className={styles.footer}>
           Power By <a href="https://github.com/CDog34/GBY" target="_blank">GBY</a>
