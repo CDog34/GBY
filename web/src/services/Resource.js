@@ -24,7 +24,7 @@ export class Resource {
   static parseUri(uri, params) {
     if (!params) return uri;
     let uriArr = uri.split('/');
-    uriArr = uriArr.map((path) => {
+    uriArr = _.map(uriArr, (path) => {
       if (path[0] === ':') {
         const res = params[path.slice(1)];
         delete params[path.slice(1)];
