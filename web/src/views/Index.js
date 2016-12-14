@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../styles/Views/Index.scss';
 import {Link} from 'react-router';
-import {version} from '../../package.json';
 import {AuthService} from '../services/AuthService';
 
 class Action extends React.Component {
@@ -47,8 +46,7 @@ export class Index extends React.Component {
           {/*<Action text="链接" link="/kitusna"/>*/}
         </div>
         <p className={styles.footer}>
-          Power By <a href="https://github.com/CDog34/GBY" target="_blank">GBY</a>. Version {version}
-
+          Power By <a href="https://github.com/CDog34/GBY" target="_blank">GBY</a>.
         </p>
       </div>
     );
