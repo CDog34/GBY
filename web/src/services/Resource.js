@@ -17,7 +17,8 @@ export class Resource {
   static method = {
     post: 'POST',
     get: 'GET',
-    put: 'PUT'
+    put: 'PUT',
+    del: 'DELETE'
   };
 
   static  jsonToQueryString(json) {

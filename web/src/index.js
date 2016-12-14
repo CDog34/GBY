@@ -7,7 +7,8 @@ import {Admin} from './admin';
 import {Index} from './views/Index';
 import {About} from './views/About';
 import {ArticleList} from './views/ArticleList';
-import {AdminArticleList} from './views/AdminArticleList';
+import {AdminArticleList} from './views/admin/AdminArticleList';
+import {AdminArticleCreate} from './views/admin/AdminArticleCreate';
 import {ArticleView} from './views/ArticleView';
 import {Login} from './views/Login';
 
@@ -24,6 +25,7 @@ ReactDOM.render((<Router history={browserHistory}>
     <Route path="/smartPuppy" components={Admin}>
       <Route component={Login} path="login"/>
       <Route component={AdminArticleList} path="aList"/>
+      <Route component={AdminArticleCreate} path="a/:articleId"/>
     </Route>
   </Router>
 ), document.getElementById('app-content'));

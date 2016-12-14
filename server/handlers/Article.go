@@ -1,33 +1,37 @@
 package handlers
 
 import (
-	"net/http"
-	"github.com/gorilla/mux"
-	. "github.com/CDog34/GBY/server/models"
-	"time"
-	"log"
-	"gopkg.in/mgo.v2/bson"
-	"github.com/CDog34/GBY/server/services"
 	"errors"
+	. "github.com/CDog34/GBY/server/models"
+	"github.com/CDog34/GBY/server/services"
+	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
+	"log"
+	"net/http"
+	"time"
 )
 
 func ArticleIndex(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 	article := Article{}
-	return article.List()
+	return article.List(false)
+}
+func ArticleListAll(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+	article := Article{}
+	return article.List(true)
 }
 
 var articlePostRules = services.FieldRules{
-	"title":services.FieldRule{
-		"required":true,
-		"type":"string",
+	"title": services.FieldRule{
+		"required": true,
+		"type":     "string",
 	},
-	"author":services.FieldRule{
-		"required":true,
-		"type":"string",
+	"author": services.FieldRule{
+		"required": true,
+		"type":     "string",
 	},
-	"content":services.FieldRule{
-		"required":true,
-		"type":"string",
+	"content": services.FieldRule{
+		"required": true,
+		"type":     "string",
 	},
 }
 
@@ -40,15 +44,15 @@ func ArticleShow(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 }
 
 func ArticleCreate(w http.ResponseWriter, r *http.Request) (error, interface{}) {
-	params := services.PostParams{Request:r, Rules: articlePostRules}
+	params := services.PostParams{Request: r, Rules: articlePostRules}
 	if err := params.Valid(); err != nil {
 		return err, nil
 	}
 	newArticle := Article{
-		Title:params.GetString("title"),
-		UpdateAt:time.Now(),
-		Author:params.GetString("author"),
-		Content:params.GetString("content"),
+		Title:    params.GetString("title"),
+		UpdateAt: time.Now(),
+		Author:   params.GetString("author"),
+		Content:  params.GetString("content"),
 	}
 	err := newArticle.Save()
 	return err, newArticle
@@ -60,15 +64,15 @@ func ArticleUpdate(w http.ResponseWriter, r *http.Request) (error, interface{}) 
 	if !bson.IsObjectIdHex(articleId) {
 		return errors.New("paramErr.inValidObjectId/*/" + articleId), nil
 	}
-	params := services.PostParams{Request:r, Rules: articlePostRules}
+	params := services.PostParams{Request: r, Rules: articlePostRules}
 	if err := params.Valid(); err != nil {
 		return err, nil
 	}
 	newArticle := Article{
-		Title:params.GetString("title"),
-		UpdateAt:time.Now(),
-		Author:params.GetString("author"),
-		Content:params.GetString("content"),
+		Title:    params.GetString("title"),
+		UpdateAt: time.Now(),
+		Author:   params.GetString("author"),
+		Content:  params.GetString("content"),
 	}
 	newArticle.Id = bson.ObjectIdHex(articleId)
 	err := newArticle.Save()
@@ -89,5 +93,12 @@ func ArticleDelete(w http.ResponseWriter, r *http.Request) (error, interface{}) 
 	} else {
 		err = article.HardDelete(articleId)
 	}
+	return err, nil
+}
+func ArticleRecover(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+	vars := mux.Vars(r)
+	articleId := vars["articleId"]
+	article := Article{}
+	err := article.RecoverDeleted(articleId)
 	return err, nil
 }

@@ -3,6 +3,7 @@ package Model
 import (
 	"errors"
 	. "github.com/CDog34/GBY/server/services"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
 )
@@ -20,9 +21,15 @@ type Article struct {
 
 type Articles []Article
 
-func (a *Article) List() (error, Articles) {
+func (a *Article) List(all bool) (error, Articles) {
 	db := &DBService
-	query, dbSession := db.Retrieve(articleCollectionName, bson.M{"deleted": false})
+	var query *mgo.Query
+	var dbSession *DBSession
+	if all {
+		query, dbSession = db.Retrieve(articleCollectionName, nil)
+	} else {
+		query, dbSession = db.Retrieve(articleCollectionName, bson.M{"deleted": false})
+	}
 	defer dbSession.Close()
 	result := make(Articles, 0, 10)
 	err := query.Sort("-_id").All(&result)

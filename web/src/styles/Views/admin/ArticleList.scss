@@ -1,0 +1,53 @@
+@import "../../colors";
+
+.listWrapper {
+  padding: 56px 48px;
+  box-sizing: border-box;
+  max-width: 710px;
+  margin: 0 auto;
+  a {
+    text-decoration: none;
+  }
+
+  .listItem {
+    padding: 16px;
+    border-left: 1px solid $color-divider;
+    border-top: 1px solid $color-divider;
+    display: flex;
+    align-items: center;
+
+    h1 {
+      font-size: 20px;
+      margin: 0;
+      color: $color-text-normal;
+
+      &.red {
+        color: $color-red;
+      }
+    }
+
+    .articleMeta {
+      display: flex;
+      padding-left: 16px;
+      flex: 1;
+
+      > * {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: $color-text-lighter;
+        font-size: 14px;
+      }
+
+      .author {
+        margin-right: 8px;
+      }
+
+    }
+  }
+  .back {
+    margin: 96px 0;
+    display: flex;
+    justify-content: center;
+  }
+}
+
