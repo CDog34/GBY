@@ -30,4 +30,11 @@ export class AuthService {
     LocalStorageService.set('User', res.user);
   }
 
+  static async logout() {
+    await UserModel.logout();
+    LocalStorageService.clear("user");
+    LocalStorageService.clear("sessionName");
+    LocalStorageService.clear("sessionValue");
+  }
+
 }

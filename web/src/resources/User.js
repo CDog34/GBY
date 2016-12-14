@@ -8,5 +8,9 @@ export const UserModel = new Resource('auth', {
   valid: {
     method: Resource.method.get,
     uri: '/valid'
+  },
+  logout: {
+    method: Resource.method.get,
+    uri: '/logout'
   }
 });

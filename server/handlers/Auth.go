@@ -77,6 +77,14 @@ func AuthNewUser(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 	err := user.Save()
 	return err, user
 }
+func AuthLogout(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+	sess, err := services.SessionMgr.SessionStart(w, r, false)
+	if err != nil {
+		return nil, nil
+	}
+	sess.Delete("user")
+	return nil, nil
+}
 func AuthValid(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 	sess, err := services.SessionMgr.SessionStart(w, r, false)
 	if err != nil {

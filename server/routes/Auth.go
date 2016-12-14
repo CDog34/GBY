@@ -18,6 +18,12 @@ var AuthRoutes = Routes{
 		HandleFunc: AuthNewUser,
 	},
 	Route{
+		Name:       "AuthLogout",
+		Method:     "GET",
+		Pattern:    "/auth/logout",
+		HandleFunc: AuthLogout,
+	},
+	Route{
 		Name:       "AuthValid",
 		Method:     "Get",
 		Pattern:    "/auth/valid",
