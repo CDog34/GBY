@@ -39,6 +39,7 @@
     user-select: none;
     color: $color-text-normal;
     text-decoration: none;
+    outline: none;
 
     &:hover {
       background-color: $color-text-lighter;

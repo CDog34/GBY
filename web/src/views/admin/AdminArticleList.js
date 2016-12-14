@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import styles from '../../styles/Views/admin/ArticleList.scss';
 import {PageContent} from '../../components/PageContent';
 import {ArticleService} from '../../services/ArticleService';
+import {BackButton} from '../../components/BackButton';
 
 
 class ArticleItem extends React.Component {
@@ -24,8 +25,8 @@ class ArticleItem extends React.Component {
           {!!article.updateAt &&
           <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/></p>}
         </div>
-        {!article.deleted && <button onClick={this.props.onDelete}>删除</button>}
-        {article.deleted && <button onClick={this.props.onRecover}>恢复</button>}
+        {!article.deleted && <button onClick={this.props.onDelete} className={styles.del}>删除</button>}
+        {article.deleted && <button onClick={this.props.onRecover} className={styles.rec}>恢复</button>}
       </article>
     </Link>;
   }
@@ -67,7 +68,10 @@ export class AdminArticleList extends React.Component {
       <PageContent>
         <div className={styles.listWrapper}>
 
-          <Link to="/smartPuppy/a/new">新建</Link>
+          <div className={styles.back}>
+            <BackButton to="/"/>
+          </div>
+          <Link to="/smartPuppy/a/new" className={styles.createNew}>+ 新建</Link>
           {this.state.articles.map((article) => <ArticleItem onDelete={this.deleteArticle(article.id)}
                                                              onRecover={this.recoverArticle(article.id)}
                                                              article={article} key={article.id}/>)}

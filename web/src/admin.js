@@ -24,7 +24,7 @@ export class Admin extends React.Component {
   render() {
     const isAuth = AuthService.isAuth();
     return <div id={styles.app}>
-      {isAuth && <button onClick={this.logout.bind(this)}>登出</button>}
+      {isAuth && <button onClick={this.logout.bind(this)} className={styles.logoutBtn}>登出</button>}
       {this.props.children}
     </div>
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles/Views/Index.scss';
 import {Link} from 'react-router';
 import {version} from '../../package.json';
+import {AuthService} from '../services/AuthService';
 
 class Action extends React.Component {
   static propTypes = {
@@ -17,8 +18,19 @@ class Action extends React.Component {
 }
 
 export class Index extends React.Component {
-  componentWillMount() {
+  state = {
+    auth: false
+  };
+
+  async componentWillMount() {
     document.title = '首页-西道の狗窝';
+    try {
+      await AuthService.valid();
+      this.setState({auth: true});
+    } catch (err) {
+      this.setState({auth: false});
+    }
+
   }
 
   render() {
@@ -31,6 +43,7 @@ export class Index extends React.Component {
         <div className={styles.actions}>
           <Action text="文章" link="/articleList"/>
           <Action text="关于" href="http://cdog.me"/>
+          {this.state.auth && <Action text="管理" link="/smartPuppy"/>}
           {/*<Action text="链接" link="/kitusna"/>*/}
         </div>
         <p className={styles.footer}>
