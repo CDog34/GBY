@@ -16,8 +16,15 @@ export class Admin extends React.Component {
 
   }
 
+  async logout() {
+    await AuthService.logout();
+    this.props.router.push('/');
+  }
+
   render() {
+    const isAuth = AuthService.isAuth();
     return <div id={styles.app}>
+      {isAuth && <button onClick={this.logout.bind(this)}>登出</button>}
       {this.props.children}
     </div>
   }

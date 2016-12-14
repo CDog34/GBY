@@ -15,7 +15,7 @@ export class Login extends React.Component {
       await AuthService.valid();
       this.props.router.push('/smartPuppy');
     } catch (err) {
-
+      //Silence is gold
     }
 
   }
@@ -27,7 +27,7 @@ export class Login extends React.Component {
       await AuthService.login(userName, password);
       this.props.router.push('/smartPuppy/aList');
     } catch (err) {
-      alert(err);
+      alert(`${err.errorCode}/${err.message}`);
     }
   }
 
