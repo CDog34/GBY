@@ -9,8 +9,15 @@ export class Login extends React.Component {
     pwd: ''
   };
 
-  componentWillMount() {
+  async componentWillMount() {
     document.title = '登录-西道の狗窝';
+    try {
+      await AuthService.valid();
+      this.props.router.push('/smartPuppy');
+    } catch (err) {
+
+    }
+
   }
 
   async login() {

@@ -19,4 +19,15 @@ export class AuthService {
     }
   }
 
+  static async valid() {
+    if (!LocalStorageService.exist('sessionName') || !LocalStorageService.exist('sessionValue')) {
+      throw {errorCode: 1, massage: 'noLocalSession'}
+    }
+    const sessName = LocalStorageService.get('sessionName');
+    const sessValue = LocalStorageService.get('sessionValue');
+    Resource.setHeader(sessName, sessValue);
+    const res = await UserModel.valid();
+    LocalStorageService.set('User', res.user);
+  }
+
 }

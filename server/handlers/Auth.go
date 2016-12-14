@@ -77,3 +77,20 @@ func AuthNewUser(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 	err := user.Save()
 	return err, user
 }
+func AuthValid(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+	sess, err := services.SessionMgr.SessionStart(w, r, false)
+	if err != nil {
+		return err, nil
+	}
+	user := Model.User{}
+	if err := user.GetOne(sess.Get("user").(Model.User).Id.Hex()); err != nil {
+		return err, nil
+	}
+	if !user.Active {
+		return errors.New("auth.userInactive"), nil
+	}
+	return nil, map[string]interface{}{
+		"user": user,
+	}
+
+}

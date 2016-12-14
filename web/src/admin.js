@@ -1,14 +1,19 @@
 import React from 'react';
 import styles from './styles/App.scss';
-import {LocalStorageService}from './services/LocalStorageService';
+import {AuthService}from './services/AuthService';
 
 export class Admin extends React.Component {
   static propTypes = {
     children: React.PropTypes.node
   };
 
-  componentWillMount() {
-    LocalStorageService.set('Time', new Date())
+  async componentWillMount() {
+    try {
+      await AuthService.valid()
+    } catch (err) {
+      this.props.router.push('/smartPuppy/login')
+    }
+
   }
 
   render() {

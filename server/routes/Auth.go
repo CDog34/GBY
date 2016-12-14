@@ -17,4 +17,11 @@ var AuthRoutes = Routes{
 		Pattern:    "/auth/register",
 		HandleFunc: AuthNewUser,
 	},
+	Route{
+		Name:       "AuthValid",
+		Method:     "Get",
+		Pattern:    "/auth/valid",
+		HandleFunc: AuthValid,
+		Roles:      []int{100},
+	},
 }
