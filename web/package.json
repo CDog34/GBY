@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "clean": "rimraf dist/*",
-    "copy": "copyfiles -f ./src/index.html ./src/favicon.ico ./dist",
+    "copy": "copyfiles -f ./src/favicon.ico ./dist",
     "dist": "npm run copy & webpack --env=dist",
     "lint": "eslint ./src",
     "posttest": "npm run lint",
@@ -72,6 +72,7 @@
     "es6-promise": "^4.0.5",
     "exports-loader": "^0.6.3",
     "github-markdown-css": "^2.4.1",
+    "html-webpack-plugin": "^2.24.1",
     "imports-loader": "^0.7.0",
     "json-loader": "^0.5.4",
     "lodash": "^4.17.2",

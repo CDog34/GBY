@@ -5,6 +5,7 @@ let webpack = require('webpack');
 
 let baseConfig = require('./base');
 let defaultSettings = require('./defaults');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
@@ -31,7 +32,17 @@ let config = Object.assign({}, baseConfig, {
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '/../src/index.html'),
+      filename: path.join(__dirname, '/../dist/index.html'),
+      inject: false,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyCSS: true
+      }
+    })
   ],
   module: defaultSettings.getDefaultModules()
 });
