@@ -15,9 +15,10 @@
     border-left: 1px solid $color-divider;
 
     h1 {
-      font-size: 30px;
       margin: 0;
       color: $color-text-normal;
+      font-size: 24px;
+      font-weight: normal;
     }
 
     .articleMeta {

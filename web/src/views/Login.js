@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Views/Index.scss';
+import styles from '../styles/Views/admin/Login.scss';
 import {AuthService} from '../services/AuthService';
 
 
@@ -39,7 +39,7 @@ export class Login extends React.Component {
                onChange={(t) => this.setState({name: t.target.value})}/>
         <input type="password" placeholder="密码" value={this.state.pwd}
                onChange={(t) => this.setState({pwd: t.target.value})}/>
-        <button onClick={this.login.bind(this)}>GO</button>
+        <button onClick={this.login.bind(this)} className={styles.action}>GO</button>
       </div>
     );
   }

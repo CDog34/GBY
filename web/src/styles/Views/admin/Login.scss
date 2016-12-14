@@ -1,0 +1,50 @@
+@import "../../colors";
+
+.index {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    margin-bottom: 24px;
+    padding: 8px;
+    border-bottom: 1px solid $color-divider;
+    font-size: 18px;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    margin-top: 48px;
+  }
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 16px;
+    font-size: 14px;
+    background-color: transparent;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    border: solid 1px $color-divider;
+    cursor: pointer;
+    transition: all .5s;
+    user-select: none;
+    color: $color-text-normal;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $color-text-lighter;
+      border: solid 1px transparent;
+      color: $color-white;
+    }
+
+  }
+}

@@ -23,6 +23,7 @@ ReactDOM.render((<Router history={browserHistory}>
       <Route component={ArticleView} path="/article/:articleId"/>
     </Route>
     <Route path="/smartPuppy" components={Admin}>
+      <IndexRoute component={AdminArticleList}/>
       <Route component={Login} path="login"/>
       <Route component={AdminArticleList} path="aList"/>
       <Route component={AdminArticleCreate} path="a/:articleId"/>
