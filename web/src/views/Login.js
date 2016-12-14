@@ -18,6 +18,7 @@ export class Login extends React.Component {
       const userName = this.state.name;
       const password = this.state.pwd;
       await AuthService.login(userName, password);
+      this.props.router.push('/smartPuppy/aList');
     } catch (err) {
       alert(err);
     }

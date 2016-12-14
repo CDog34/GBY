@@ -2,7 +2,7 @@ import config from 'config';
 import _ from 'lodash';
 
 export class Resource {
-  private static header = new Headers({
+  static header = new Headers({
     'X-App-Id': 'GBY-WEB'
   });
 

@@ -8,13 +8,13 @@ var AuthRoutes = Routes{
 	Route{
 		Name:       "AuthLogin",
 		Method:     "POST",
-		Pattern:    "/login",
+		Pattern:    "/auth/login",
 		HandleFunc: AuthLogin,
 	},
 	Route{
 		Name:       "AuthNewUser",
 		Method:     "POST",
-		Pattern:    "/register",
+		Pattern:    "/auth/register",
 		HandleFunc: AuthNewUser,
 	},
 }

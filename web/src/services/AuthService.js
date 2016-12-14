@@ -7,7 +7,6 @@ export class AuthService {
   static async login(userName, password) {
     try {
       const resRaw = await UserModel.login({}, {email: userName, password: password});
-      console.log('[Dbg.jq:resRaw]:', resRaw);
       if (resRaw.status === 204) return true;
       const res = await resRaw.json();
       LocalStorageService.set('user', res.user);
