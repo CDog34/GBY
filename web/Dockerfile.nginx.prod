@@ -1,9 +1,9 @@
 FROM daocloud.io/nginx
 
-ENV BUILD_ENV staging
+ENV BUILD_ENV prod
 
 RUN mkdir /wwwroot
-COPY nginx.$BUILD_ENV.conf /etc/nginx/nginx.conf
+COPY nginx.prod.conf /etc/nginx/nginx.conf
 
 COPY proj/dist/ /wwwroot/
 

@@ -1,0 +1,16 @@
+FROM daocloud.io/golang:1.7
+
+ENV APPROOT ${GOPATH}/src/github.com/CDog34/GBY/server 
+
+RUN mkdir -p ${APPROOT}
+
+COPY . ${APPROOT}/
+
+RUN cd ${APPROOT} && ls && go get &&go build
+
+ENV GBYENV production
+ENV GBY_LISTEN_PORT 8105
+EXPOSE $GBY_LISTEN_PORT
+WORKDIR ${APPROOT}
+CMD ["server"]
+
