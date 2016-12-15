@@ -27,7 +27,6 @@ export class Login extends React.Component {
       await AuthService.login(userName, password);
       this.props.router.push('/smartPuppy/aList');
     } catch (err) {
-      alert(`${err.errorCode}/${err.message}`);
     }
   }
 

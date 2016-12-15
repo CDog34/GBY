@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles/App.scss';
 import {AuthService}from './services/AuthService';
+import {NetworkIndicator, NetworkError} from './components/NetworkIndicator'
 
 export class Admin extends React.Component {
   static propTypes = {
@@ -24,6 +25,8 @@ export class Admin extends React.Component {
   render() {
     const isAuth = AuthService.isAuth();
     return <div id={styles.app}>
+      <NetworkIndicator/>
+      <NetworkError/>
       {isAuth && <button onClick={this.logout.bind(this)} className={styles.logoutBtn}>登出</button>}
       {this.props.children}
     </div>

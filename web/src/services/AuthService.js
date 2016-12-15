@@ -38,6 +38,9 @@ export class AuthService {
       LocalStorageService.set('user', res.user);
       AuthService.auth = true;
     } catch (err) {
+      LocalStorageService.clear('user');
+      LocalStorageService.clear('sessionName');
+      LocalStorageService.clear('sessionValue');
       AuthService.auth = false;
       throw err;
     }

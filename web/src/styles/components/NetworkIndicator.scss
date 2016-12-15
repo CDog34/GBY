@@ -1,0 +1,129 @@
+@import "../colors";
+
+.indicator, .error {
+  position: fixed;
+  bottom: 48px;
+  padding: 16px;
+  background-color: $color-text-lighter;
+  border-radius: 8px;
+  p {
+    margin: 0
+  }
+
+}
+
+.error {
+  right: 48px;
+  opacity: .8;
+  p {
+    line-height: 1.5;
+  }
+  p.title {
+    font-size: 16px;
+    color: lighten($color-red, 25%);
+    margin-bottom: 8px;
+  }
+  animation: err-in 5.8s;
+  .type, .message {
+    color: $color-white;
+    font-size: 14px;
+    padding-left: 16px;
+  }
+}
+
+.indicator {
+  left: 48px;
+  background-color: transparent;
+  //opacity: .8;
+  //p {
+  //  color: $color-white;
+  //  font-size: 16px;
+  //  margin-top: 8px;
+  //}
+
+  //CSSLoad
+  .cssload-loader {
+    position: relative;
+    left: calc(50% - 31px);
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    perspective: 780px;
+  }
+
+  .cssload-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+
+  .cssload-inner.cssload-one {
+    left: 0%;
+    top: 0%;
+    animation: cssload-rotate-one 1.15s linear infinite;
+    border-bottom: 3px solid $color-text-lighter;
+  }
+
+  .cssload-inner.cssload-two {
+    right: 0%;
+    top: 0%;
+    animation: cssload-rotate-two 1.15s linear infinite;
+    border-right: 3px solid $color-text-lighter;
+  }
+
+  .cssload-inner.cssload-three {
+    right: 0%;
+    bottom: 0%;
+    animation: cssload-rotate-three 1.15s linear infinite;
+    border-top: 3px solid $color-text-lighter;
+  }
+
+  @keyframes err-in {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    10% {
+      transform: translateX(0);
+      opacity: .8;
+    }
+    90% {
+      transform: translateX(0);
+      opacity: .8;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes cssload-rotate-one {
+    0% {
+      transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+    100% {
+      transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+  }
+
+  @keyframes cssload-rotate-two {
+    0% {
+      transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+    100% {
+      transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+  }
+
+  @keyframes cssload-rotate-three {
+    0% {
+      transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+    100% {
+      transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
+  }
+
+}

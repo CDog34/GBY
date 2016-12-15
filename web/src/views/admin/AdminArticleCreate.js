@@ -58,7 +58,6 @@ export class AdminArticleCreate extends React.Component {
       }));
       this.props.router.goBack();
     } catch (err) {
-      alert(`${err.errorCode}/${err.message}`)
     }
 
 

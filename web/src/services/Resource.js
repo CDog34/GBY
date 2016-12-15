@@ -1,5 +1,6 @@
 import config from 'config';
 import _ from 'lodash';
+import {NetworkStore} from '../stores/NetworkStore';
 
 export class Resource {
   static header = new Headers({
@@ -52,6 +53,7 @@ export class Resource {
   }
 
   constructor(baseUri, methods, constants) {
+    const networkStore = NetworkStore.getInstance();
     this.baseUrl = config.apiBaseUrl + baseUri;
     _.forEach(methods, (value, key) => {
       this[key] = async(uriParams, bodyPayload) => {
@@ -61,9 +63,17 @@ export class Resource {
           headers: Resource.getHeader()
         };
         if (option.method === Resource.method.post || option.method === Resource.method.put) option['body'] = Resource.generateBodyForJson(bodyPayload);
-        const res = await fetch(this.baseUrl + parsedUri, option);
-        if (!res.ok) throw await res.json();
-        return res;
+        networkStore.requestStart(parsedUri);
+        try {
+          const res = await fetch(this.baseUrl + parsedUri, option);
+          if (!res.ok) throw await res.json();
+          networkStore.requestComplete(parsedUri);
+          return res;
+        } catch (err) {
+          networkStore.requestError(parsedUri, err);
+          throw err;
+        }
+
       }
     });
     _.forEach(constants, (value, key) => this[key] = value)
