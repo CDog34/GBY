@@ -35,7 +35,8 @@ export class AuthService {
       const sessValue = LocalStorageService.get('sessionValue');
       Resource.setHeader(sessName, sessValue);
       const res = await UserModel.valid();
-      LocalStorageService.set('user', res.user);
+      const json = await res.json();
+      LocalStorageService.set('user', JSON.stringify(json.user));
       store.setState(true);
     } catch (err) {
       LocalStorageService.clear('user');

@@ -1,4 +1,6 @@
 /* Base Application Styles */
+@import "colors";
+
 #app-content {
   display: flex;
   align-items: stretch;
@@ -11,8 +13,28 @@
   flex: 1;
 }
 
-.logoutBtn {
-  border: none;
-  background-color: transparent;
+.adminMenu {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: solid 1px $color-divider;
+  .mainBtn {
+    flex: 1;
+    height: 64px;
+    display: flex;
+  }
+  button, a {
+    padding: 0 16px;
+    margin: 0 .5px;
+    background-color: $color-divider;
+    height: 64px;
+    border: none;
+    text-decoration: none;
+    line-height: 64px;
+    color: $color-text-lighter;
+    outline: none;
+  }
 }
+
 
