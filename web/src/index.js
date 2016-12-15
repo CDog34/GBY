@@ -1,10 +1,11 @@
 import 'core-js/fn/object/assign';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, browserHistory} from 'react-router'
+import {Router, Route, IndexRoute, browserHistory, Redirect} from 'react-router'
 import {App} from './app';
 import {Admin} from './admin';
 import {Index} from './views/Index';
+import {NotFound} from './views/NotFound';
 import {About} from './views/About';
 import {ArticleList} from './views/ArticleList';
 import {AdminArticleList} from './views/admin/AdminArticleList';
@@ -28,5 +29,7 @@ ReactDOM.render((<Router history={browserHistory}>
       <Route component={AdminArticleList} path="aList"/>
       <Route component={AdminArticleCreate} path="a/:articleId"/>
     </Route>
+    <Route path="/%E2%91%A8" component={NotFound}/>
+    <Redirect path="*" to="/%E2%91%A8"/>
   </Router>
 ), document.getElementById('app-content'));
