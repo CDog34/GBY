@@ -1,14 +1,19 @@
 import React from 'react';
+import {observer} from 'mobx-react'
 import styles from './styles/App.scss';
 import {AuthService}from './services/AuthService';
+import {AuthStore} from './stores/AuthStore';
 import {NetworkIndicator, NetworkError} from './components/NetworkIndicator'
 
+@observer
 export class Admin extends React.Component {
+  store;
   static propTypes = {
     children: React.PropTypes.node
   };
 
   async componentWillMount() {
+    this.store = AuthStore.getInstance();
     try {
       await AuthService.valid()
     } catch (err) {
@@ -23,7 +28,7 @@ export class Admin extends React.Component {
   }
 
   render() {
-    const isAuth = AuthService.isAuth();
+    const isAuth = this.store.auth;
     return <div id={styles.app}>
       <NetworkIndicator/>
       <NetworkError/>
