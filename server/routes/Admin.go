@@ -40,4 +40,41 @@ var AdminRoutes = Routes{
 		HandleFunc: ArticleRecover,
 		Roles:      []int{100},
 	},
+
+	//Links
+	Route{
+		Name:       "LinkListAll",
+		Method:     "GET",
+		Pattern:    "/admin/link",
+		HandleFunc: LinkListAll,
+		Roles:      []int{100},
+	},
+	Route{
+		Name:       "LinkCreate",
+		Method:     "POST",
+		Pattern:    "/admin/link",
+		HandleFunc: LinkCreate,
+		Roles:      []int{100},
+	},
+	Route{
+		Name:       "LinkDelete",
+		Method:     "DELETE",
+		Pattern:    "/admin/link/{linkId}",
+		HandleFunc: LinkDelete,
+		Roles:      []int{100},
+	},
+	Route{
+		Name:       "LinkUpdate",
+		Method:     "PUT",
+		Pattern:    "/admin/link/{linkId}",
+		HandleFunc: LinkUpdate,
+		Roles:      []int{100},
+	},
+	Route{
+		Name:       "LinkRecover",
+		Method:     "GET",
+		Pattern:    "/admin/link/{linkId}/recover",
+		HandleFunc: LinkRecover,
+		Roles:      []int{100},
+	},
 }

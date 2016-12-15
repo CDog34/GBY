@@ -4,17 +4,17 @@ import (
 	. "github.com/CDog34/GBY/server/handlers"
 )
 
-var ArticleRoutes = Routes{
+var LinkRoutes = Routes{
 	Route{
-		Name:       "ArticleIndex",
+		Name:       "LinkList",
 		Method:     "GET",
-		Pattern:    "/article",
-		HandleFunc: ArticleIndex,
+		Pattern:    "/link",
+		HandleFunc: LinkList,
 	},
 	Route{
-		Name:       "ArticleShow",
+		Name:       "LinkShow",
 		Method:     "GET",
-		Pattern:    "/article/{articleId}",
-		HandleFunc: ArticleShow,
+		Pattern:    "/link/{linkId}",
+		HandleFunc: LinkShow,
 	},
 }
