@@ -13,7 +13,7 @@ const linkCollectionName = "link"
 type Link struct {
 	Id          bson.ObjectId `json:"id" bson:"_id,omitempty"`
 	Name        string        `json:"name"`
-	Url         string        `json:"Url"`
+	Url         string        `json:"url"`
 	UpdateAt    time.Time     `json:"updateAt"`
 	IsPublic    bool          `json:"isPublic"`
 	Image       string        `json:"image"`
@@ -29,7 +29,7 @@ func (a *Link) List(all bool) (error, Links) {
 	if all {
 		query, dbSession = db.Retrieve(linkCollectionName, nil)
 	} else {
-		query, dbSession = db.Retrieve(linkCollectionName, bson.M{"isPublic": true})
+		query, dbSession = db.Retrieve(linkCollectionName, bson.M{"ispublic": true})
 	}
 	defer dbSession.Close()
 	result := make(Links, 0, 10)

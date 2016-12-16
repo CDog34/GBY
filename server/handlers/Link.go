@@ -30,7 +30,7 @@ var linkPostRules = services.FieldRules{
 		"type":     "string",
 	},
 	"image": services.FieldRule{
-		"required": true,
+		"required": false,
 		"type":     "string",
 	},
 	"description": services.FieldRule{
@@ -58,6 +58,7 @@ func LinkCreate(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 		Url:         params.GetString("url"),
 		Image:       params.GetString("image"),
 		Description: params.GetString("description"),
+		IsPublic:    true,
 	}
 	err := newLink.Save()
 	return err, newLink
