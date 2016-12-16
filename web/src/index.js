@@ -12,9 +12,11 @@ import {AdminArticleList} from './views/admin/AdminArticleList';
 import {AdminArticleCreate} from './views/admin/AdminArticleCreate';
 import {ArticleView} from './views/ArticleView';
 import {Login} from './views/Login';
+import {DaoVoiceService} from './services/DaoVoiceService';
 
 
 require('normalize.css/normalize.css');
+DaoVoiceService.load();
 
 ReactDOM.render((<Router history={browserHistory}>
     <Route path="/" component={App}>
