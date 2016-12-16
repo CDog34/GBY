@@ -17,7 +17,7 @@ type Link struct {
 	UpdateAt    time.Time     `json:"updateAt"`
 	IsPublic    bool          `json:"isPublic"`
 	Image       string        `json:"image"`
-	Description string        `json:"description "`
+	Description string        `json:"description"`
 }
 
 type Links []Link

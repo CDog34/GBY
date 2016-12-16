@@ -10,6 +10,7 @@ import {About} from './views/About';
 import {ArticleList} from './views/ArticleList';
 import {AdminArticleList} from './views/admin/AdminArticleList';
 import {AdminArticleCreate} from './views/admin/AdminArticleCreate';
+import {AdminLinkList} from './views/admin/AdminLinkList';
 import {ArticleView} from './views/ArticleView';
 import {Login} from './views/Login';
 import {DaoVoiceService} from './services/DaoVoiceService';
@@ -30,6 +31,7 @@ ReactDOM.render((<Router history={browserHistory}>
       <Route component={Login} path="login"/>
       <Route component={AdminArticleList} path="aList"/>
       <Route component={AdminArticleCreate} path="a/:articleId"/>
+      <Route component={AdminLinkList} path="lList"/>
     </Route>
     <Route path="/%E2%91%A8" component={NotFound}/>
     <Redirect path="*" to="/%E2%91%A8"/>

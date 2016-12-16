@@ -1,0 +1,86 @@
+@import "../../colors";
+
+.listWrapper {
+  padding: 56px 48px;
+  box-sizing: border-box;
+  max-width: 710px;
+  margin: 0 auto;
+  a {
+    text-decoration: none;
+  }
+  button {
+    border: none;
+    background-color: transparent;
+    transition: all .5s;
+    outline: none;
+
+    &.del {
+      color: $color-red;
+    }
+    &.rec {
+      color: $color-green;
+    }
+
+    &:hover {
+      background-color: $color-divider;
+    }
+  }
+  .createNew {
+    text-decoration: none;
+    color: $color-text-lighter;
+    display: block;
+    text-align: center;
+    background-color: $color-divider;
+    padding: 16px;
+  }
+
+  .listItem {
+    padding: 16px;
+    border-left: 1px solid $color-divider;
+    border-top: 1px solid $color-divider;
+    border-right: 1px solid $color-divider;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .name {
+      font-size: 20px;
+      margin: 0;
+      color: $color-text-normal;
+      input {
+        outline: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: solid 1px $color-divider;
+      }
+
+      &.red {
+        color: $color-red;
+      }
+    }
+    .meta {
+      color: $color-text-lighter;
+
+      input {
+        outline: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: solid 1px $color-divider;
+        color: $color-text-lighter;
+      }
+    }
+    button {
+      display: block;
+      color: $color-text-lighter;
+    }
+
+  }
+  .back {
+    margin: 0 0 8px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+

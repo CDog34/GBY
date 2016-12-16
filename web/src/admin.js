@@ -33,6 +33,7 @@ export class Admin extends React.Component {
       <div className={styles.mainBtn}>
         <Link to="/">首页</Link>
         <Link to="/smartPuppy/aList">文章列表</Link>
+        <Link to="/smartPuppy/lList">链接列表</Link>
       </div>
       <button onClick={this.logout.bind(this)} className={styles.logoutBtn}>登出</button>
     </div>
