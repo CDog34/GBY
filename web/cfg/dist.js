@@ -11,10 +11,13 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
-  entry: [
-    'babel-polyfill',
-    path.join(__dirname, '../src/index')
-  ],
+  entry: {
+    bundle: [
+      'babel-polyfill',
+      path.join(__dirname, '../src/index')
+    ],
+    vendor: ['whatwg-fetch', 'es6-promise', 'babel-polyfill', 'react', 'react-moment', 'react-router', 'lodash', './package.json', 'react-markdown', 'mobx', 'mobx-react'],
+  },
   cache: false,
   devtool: null,
   plugins: [
@@ -33,6 +36,7 @@ let config = Object.assign({}, baseConfig, {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '/../src/index.html'),
       filename: path.join(__dirname, '/../dist/index.html'),

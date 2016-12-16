@@ -9,12 +9,15 @@ let defaultSettings = require('./defaults');
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 
 let config = Object.assign({}, baseConfig, {
-  entry: [
-    'webpack-dev-server/client?http://0.0.0.0:' + defaultSettings.port,
-    'webpack/hot/only-dev-server',
-    'babel-polyfill',
-    './src/index'
-  ],
+  entry: {
+    bundle: [
+      'webpack-dev-server/client?http://0.0.0.0:' + defaultSettings.port,
+      'webpack/hot/only-dev-server',
+      'babel-polyfill',
+      './src/index'
+    ],
+    vendor: ['whatwg-fetch', 'es6-promise', 'babel-polyfill', 'react', 'react-moment', 'react-router', 'lodash', './package.json', 'react-markdown', 'mobx', 'mobx-react'],
+  },
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
@@ -24,6 +27,7 @@ let config = Object.assign({}, baseConfig, {
       'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new webpack.NoErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new BowerWebpackPlugin({
       searchResolveModulesDirectories: false
     })
