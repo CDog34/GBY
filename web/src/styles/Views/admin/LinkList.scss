@@ -61,6 +61,7 @@
     }
     .meta {
       color: $color-text-lighter;
+      word-break: break-all;
 
       input {
         outline: none;
@@ -70,6 +71,9 @@
         border-bottom: solid 1px $color-divider;
         color: $color-text-lighter;
       }
+    }
+    .actions {
+      flex-shrink: 0;
     }
     button {
       display: block;

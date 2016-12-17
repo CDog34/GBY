@@ -125,7 +125,7 @@ class LinkItem extends React.Component {
           <EditableText className={styles.meta} content={image} editMode={editMode}
                         onChange={this.changeField('image')}>图像：</EditableText>
         </div>
-        <div>
+        <div className={styles.actions}>
           {!this.state.editMode && <button onClick={() => this.goEdit()}>编辑</button>}
           {!this.state.editMode && link.isPublic &&
           <button onClick={this.makePrivate(link.id)} style={{color: 'red'}}>设为私人</button>}
