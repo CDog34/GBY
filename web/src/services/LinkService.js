@@ -1,9 +1,15 @@
 import {LinkAdminModel} from '../resources/admin/Link';
-export class LinkService {
+import {LinkModel} from '../resources/Link';
 
+export class LinkService {
 
   static async adminList() {
     const res = await LinkAdminModel.list();
+    return await res.json();
+  }
+
+  static async list() {
+    const res = await LinkModel.list();
     return await res.json();
   }
 

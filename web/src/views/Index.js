@@ -42,9 +42,8 @@ export class Index extends React.Component {
         </div>
         <div className={styles.actions}>
           <Action text="文章" link="/articleList"/>
-          <Action text="关于" href="http://cdog.me"/>
+          <Action text="链接" link="/lian"/>
           {this.state.auth && <Action text="管理" link="/smartPuppy"/>}
-          {/*<Action text="链接" link="/kitusna"/>*/}
         </div>
         <p className={styles.footer}>
           Power By <a href="https://github.com/CDog34/GBY" target="_blank">GBY v{pkg.version}</a>.

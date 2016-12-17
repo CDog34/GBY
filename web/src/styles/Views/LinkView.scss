@@ -1,0 +1,89 @@
+@import "../colors";
+
+.LinkView {
+  .listWrapper {
+    padding: 56px 48px;
+    box-sizing: border-box;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    a {
+      text-decoration: none;
+    }
+
+    .listItem {
+      padding: 4px 8px;
+      margin: 16px 0;
+      display: flex;
+      width: 268px;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: inherit;
+      border-left: solid 1px $color-divider;
+      .imageWrapper {
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        overflow: hidden;
+
+        img {
+          width: auto;
+          height: 50px;
+        }
+      }
+      .intro {
+        align-self: stretch;
+        flex: 1;
+        margin-left: 8px;
+        p {
+          margin: 0;
+          white-space: nowrap;
+          align-self: stretch;
+          width: 268-8-8-8-8-50px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .name {
+          color: $color-blue;
+          font-size: 18px;
+          font-weight: 500;
+        }
+        .desc {
+          font-size: 14px;
+          color: $color-text-lighter;
+          padding-top: 8px;
+        }
+      }
+
+      > * {
+        transition: transform .5s;
+        transform-origin: 0 50%;
+      }
+      &:hover {
+        > * {
+          transform: translateX(5px);
+        }
+
+      }
+    }
+  }
+
+  .apply {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    color: $color-text-lighter;
+  }
+  .back {
+    margin: 96px auto;
+    display: flex;
+    justify-content: center;
+  }
+}
+

@@ -14,6 +14,7 @@ import {AdminLinkList} from './views/admin/AdminLinkList';
 import {ArticleView} from './views/ArticleView';
 import {Login} from './views/Login';
 import {DaoVoiceService} from './services/DaoVoiceService';
+import {LinkView} from './views/LinkView';
 
 
 require('normalize.css/normalize.css');
@@ -25,6 +26,7 @@ ReactDOM.render((<Router history={browserHistory}>
       <Route component={About} path="about"/>
       <Route component={ArticleList} path="/articleList"/>
       <Route component={ArticleView} path="/article/:articleId"/>
+      <Route component={LinkView} path="/lian"/>
     </Route>
     <Route path="/smartPuppy" components={Admin}>
       <IndexRoute component={AdminArticleList}/>
