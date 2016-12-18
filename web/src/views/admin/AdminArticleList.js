@@ -70,7 +70,8 @@ export class AdminArticleList extends React.Component {
   toggleIndex(article) {
     return async(e) => {
       e.preventDefault();
-      const newArticle = Object.assign(article, {showOnIndex: !article.showOnIndex});
+      const oldArticle = await ArticleService.get(article.id);
+      const newArticle = Object.assign(oldArticle, {showOnIndex: !oldArticle.showOnIndex});
       await ArticleService.save(newArticle);
       await this.load();
     }
