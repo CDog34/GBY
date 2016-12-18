@@ -12,12 +12,18 @@ import (
 )
 
 func ArticleIndex(w http.ResponseWriter, r *http.Request) (error, interface{}) {
+	err := r.ParseForm()
+	if err != nil {
+		log.Print(err)
+		return err, nil
+	}
+	onIndex := len(r.Form["onIndex"]) > 0 && r.Form["onIndex"][0] == "1"
 	article := Article{}
-	return article.List(false)
+	return article.List(false, onIndex)
 }
 func ArticleListAll(w http.ResponseWriter, r *http.Request) (error, interface{}) {
 	article := Article{}
-	return article.List(true)
+	return article.List(true, true)
 }
 
 var articlePostRules = services.FieldRules{
@@ -32,6 +38,10 @@ var articlePostRules = services.FieldRules{
 	"content": services.FieldRule{
 		"required": true,
 		"type":     "string",
+	},
+	"showOnIndex": services.FieldRule{
+		"required": false,
+		"type":     "boolean",
 	},
 }
 
@@ -69,10 +79,11 @@ func ArticleUpdate(w http.ResponseWriter, r *http.Request) (error, interface{}) 
 		return err, nil
 	}
 	newArticle := Article{
-		Title:    params.GetString("title"),
-		UpdateAt: time.Now(),
-		Author:   params.GetString("author"),
-		Content:  params.GetString("content"),
+		Title:       params.GetString("title"),
+		UpdateAt:    time.Now(),
+		Author:      params.GetString("author"),
+		Content:     params.GetString("content"),
+		ShowOnIndex: params.GetBool("showOnIndex"),
 	}
 	newArticle.Id = bson.ObjectIdHex(articleId)
 	err := newArticle.Save()

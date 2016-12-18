@@ -11,27 +11,32 @@
 
 #app {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .adminMenu {
-  height: 64px;
+  height: 48px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   padding: 0 16px;
   border-bottom: solid 1px $color-divider;
+  background-color: $color-white;
   .mainBtn {
     flex: 1;
-    height: 64px;
+    height: 48px;
     display: flex;
   }
   button, a {
     padding: 0 16px;
     margin: 0 .5px;
     background-color: $color-divider;
-    height: 64px;
+    height: 48px;
     border: none;
     text-decoration: none;
-    line-height: 64px;
+    line-height: 48px;
     color: $color-text-lighter;
     outline: none;
   }

@@ -7,7 +7,7 @@ export class PageContent extends React.Component {
 
   render() {
     return <div style={{
-      height: '100vh',
+      flex: 1,
       overflowY: 'auto',
       boxSizing: 'border-box'
     }}>

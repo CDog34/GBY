@@ -6,6 +6,11 @@ export class ArticleService {
     return await res.json();
   }
 
+  static async listForIndex() {
+    const res = await ArticleModel.list({onIndex: 1});
+    return await res.json();
+  }
+
   static async adminList() {
     const res = await ArticleAdminModel.list();
     return await res.json();

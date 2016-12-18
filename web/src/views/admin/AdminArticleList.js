@@ -11,7 +11,8 @@ class ArticleItem extends React.Component {
   static propTypes = {
     article: React.PropTypes.object,
     onDelete: React.PropTypes.func,
-    onRecover: React.PropTypes.func
+    onRecover: React.PropTypes.func,
+    toggleIndex: React.PropTypes.func
   };
 
 
@@ -26,7 +27,10 @@ class ArticleItem extends React.Component {
           <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/></p>}
         </div>
         {!article.deleted && <button onClick={this.props.onDelete} className={styles.del}>删除</button>}
-        {article.deleted && <button onClick={this.props.onRecover} className={styles.rec}>恢复</button>}
+        {article.deleted &&
+        <button onClick={this.props.onRecover} className={styles.rec}>恢复</button>}
+        {!article.showOnIndex && <button onClick={this.props.toggleIndex}>首页不显示</button>}
+        {article.showOnIndex && <button onClick={this.props.toggleIndex} className={styles.rec}>首页显示</button>}
       </article>
     </Link>;
   }
@@ -63,6 +67,15 @@ export class AdminArticleList extends React.Component {
     }
   }
 
+  toggleIndex(article) {
+    return async(e) => {
+      e.preventDefault();
+      const newArticle = Object.assign(article, {showOnIndex: !article.showOnIndex});
+      await ArticleService.save(newArticle);
+      await this.load();
+    }
+  }
+
   render() {
     return (
       <PageContent>
@@ -74,7 +87,8 @@ export class AdminArticleList extends React.Component {
           <Link to="/smartPuppy/a/new" className={styles.createNew}>+ 新建</Link>
           {this.state.articles.map((article) => <ArticleItem onDelete={this.deleteArticle(article.id)}
                                                              onRecover={this.recoverArticle(article.id)}
-                                                             article={article} key={article.id}/>)}
+                                                             article={article} key={article.id}
+                                                             toggleIndex={this.toggleIndex(article)}/>)}
 
         </div>
       </PageContent>

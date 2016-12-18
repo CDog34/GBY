@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from '../styles/Views/Index.scss';
 import {Link} from 'react-router';
+import _ from 'lodash';
+import {observer} from 'mobx-react';
+
 import {AuthService} from '../services/AuthService';
+import {ArticleService} from '../services/ArticleService';
+import {AuthStore} from '../stores/AuthStore';
 import pkg from '../../package.json';
 
 class Action extends React.Component {
@@ -17,23 +22,26 @@ class Action extends React.Component {
   }
 }
 
+@observer
 export class Index extends React.Component {
   state = {
-    auth: false
+    articles: {}
   };
 
   async componentWillMount() {
     document.title = '首页-西道の狗窝';
     try {
       await AuthService.valid();
-      this.setState({auth: true});
     } catch (err) {
-      this.setState({auth: false});
+      //Silence is gold
     }
+    const res = await ArticleService.listForIndex();
+    this.setState({articles: res});
 
   }
 
   render() {
+    const store = AuthStore.getInstance();
     return (
       <div className={styles.index}>
         <div className={styles.title}>
@@ -43,7 +51,9 @@ export class Index extends React.Component {
         <div className={styles.actions}>
           <Action text="文章" link="/articleList"/>
           <Action text="链接" link="/lian"/>
-          {this.state.auth && <Action text="管理" link="/smartPuppy"/>}
+          {_.map(this.state.articles, (article) => <Action text={article.title} link={`/article/${article.id}`}
+                                                           key={article.id}/>)}
+          {store.auth && <Action text="管理" link="/smartPuppy"/>}
         </div>
         <p className={styles.footer}>
           Power By <a href="https://github.com/CDog34/GBY" target="_blank">GBY v{pkg.version}</a>.

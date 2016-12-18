@@ -11,24 +11,25 @@ import (
 const articleCollectionName = "article"
 
 type Article struct {
-	Id       bson.ObjectId `json:"id" bson:"_id,omitempty"`
-	Title    string        `json:"title"`
-	UpdateAt time.Time     `json:"updateAt"`
-	Author   string        `json:"author"`
-	Content  string        `json:"content"`
-	Deleted  bool          `json:"deleted"`
+	Id          bson.ObjectId `json:"id" bson:"_id,omitempty"`
+	Title       string        `json:"title"`
+	UpdateAt    time.Time     `json:"updateAt"`
+	Author      string        `json:"author"`
+	Content     string        `json:"content"`
+	Deleted     bool          `json:"deleted"`
+	ShowOnIndex bool          `json:"showOnIndex"`
 }
 
 type Articles []Article
 
-func (a *Article) List(all bool) (error, Articles) {
+func (a *Article) List(all bool, onIndex bool) (error, Articles) {
 	db := &DBService
 	var query *mgo.Query
 	var dbSession *DBSession
 	if all {
 		query, dbSession = db.Retrieve(articleCollectionName, nil)
 	} else {
-		query, dbSession = db.Retrieve(articleCollectionName, bson.M{"deleted": false})
+		query, dbSession = db.Retrieve(articleCollectionName, bson.M{"deleted": false, "showonindex": onIndex})
 	}
 	defer dbSession.Close()
 	result := make(Articles, 0, 10)
