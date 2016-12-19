@@ -1,4 +1,4 @@
 # WIP:GBY
-Still Working in process.
+Still Working in progress.
 
 A blog system in GoLang
