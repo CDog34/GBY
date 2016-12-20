@@ -79,6 +79,10 @@
     text-align: center;
     font-size: 14px;
     color: $color-text-lighter;
+    a {
+      color: $color-blue;
+      text-decoration: none;
+    }
   }
   .back {
     margin: 96px auto;

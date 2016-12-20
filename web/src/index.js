@@ -6,7 +6,6 @@ import {App} from './app';
 import {Admin} from './admin';
 import {Index} from './views/Index';
 import {NotFound} from './views/NotFound';
-import {About} from './views/About';
 import {ArticleList} from './views/ArticleList';
 import {AdminArticleList} from './views/admin/AdminArticleList';
 import {AdminArticleCreate} from './views/admin/AdminArticleCreate';
@@ -23,7 +22,6 @@ DaoVoiceService.load();
 ReactDOM.render((<Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Index}/>
-      <Route component={About} path="about"/>
       <Route component={ArticleList} path="/articleList"/>
       <Route component={ArticleView} path="/article/:articleId"/>
       <Route component={LinkView} path="/lian"/>

@@ -5,6 +5,7 @@ import styles from '../styles/Views/ArticleList.scss';
 import {BackButton} from '../components/BackButton';
 import {PageContent} from '../components/PageContent';
 import {ArticleService} from '../services/ArticleService';
+import {DaoVoiceService} from '../services/DaoVoiceService';
 
 
 class ArticleItem extends React.Component {
@@ -36,6 +37,10 @@ export class ArticleList extends React.Component {
     document.title = '文章列表-西道の狗窝';
     const res = await ArticleService.list();
     this.setState({articles: res});
+  }
+
+  componentDidMount() {
+    DaoVoiceService.pageVisitEvent('articleList');
   }
 
   render() {

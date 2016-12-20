@@ -5,6 +5,7 @@ import styles from '../styles/Views/ArticleView.scss';
 import {BackButton} from '../components/BackButton';
 import {PageContent} from '../components/PageContent';
 import {ArticleService} from '../services/ArticleService';
+import {DaoVoiceService} from '../services/DaoVoiceService';
 
 require('github-markdown-css');
 
@@ -22,6 +23,10 @@ export class ArticleView extends React.Component {
     const res = await ArticleService.get(articleId);
     document.title = `${res.title}-西道の狗窝`;
     this.setState({article: res});
+    DaoVoiceService.pageVisitEvent('articleView', {
+      articleId: res.id,
+      articleTitle: res.title
+    });
   }
 
   render() {

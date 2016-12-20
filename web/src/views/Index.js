@@ -6,6 +6,7 @@ import {observer} from 'mobx-react';
 
 import {AuthService} from '../services/AuthService';
 import {ArticleService} from '../services/ArticleService';
+import {DaoVoiceService} from '../services/DaoVoiceService';
 import {AuthStore} from '../stores/AuthStore';
 import pkg from '../../package.json';
 
@@ -37,6 +38,7 @@ export class Index extends React.Component {
     }
     const res = await ArticleService.listForIndex();
     this.setState({articles: res});
+    DaoVoiceService.pageVisitEvent('index');
 
   }
 
