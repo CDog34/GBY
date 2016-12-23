@@ -6,17 +6,20 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  transition: background-image .5s, transform 5s;
+
+
   .title {
     display: flex;
     align-items: center;
     flex-direction: column;
   }
   h1 {
-    color: $color-text-normal;
+    color: rgba($color-white, 0.87);
   }
 
   span {
-    color: $color-text-lighter;
+    color: rgba($color-white, 0.54);
   }
 
   .actions {
@@ -38,7 +41,7 @@
     cursor: pointer;
     transition: all .5s;
     user-select: none;
-    color: $color-text-normal;
+    color: rgba($color-white, 0.54);
     text-decoration: none;
 
     &:hover {

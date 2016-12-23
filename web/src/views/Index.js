@@ -9,6 +9,8 @@ import {ArticleService} from '../services/ArticleService';
 import {DaoVoiceService} from '../services/DaoVoiceService';
 import {AuthStore} from '../stores/AuthStore';
 import pkg from '../../package.json';
+import {DynamicBackground} from '../components/DynamicBackground';
+
 
 class Action extends React.Component {
   static propTypes = {
@@ -39,13 +41,14 @@ export class Index extends React.Component {
     const res = await ArticleService.listForIndex();
     this.setState({articles: res});
     DaoVoiceService.pageVisitEvent('index');
-
   }
+
 
   render() {
     const store = AuthStore.getInstance();
     return (
       <div className={styles.index}>
+        <DynamicBackground/>
         <div className={styles.title}>
           <h1>西道の狗窝</h1>
           <span>CDog's Kennel</span>
