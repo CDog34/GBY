@@ -16,7 +16,7 @@ let config = Object.assign({}, baseConfig, {
       'babel-polyfill',
       path.join(__dirname, '../src/index')
     ],
-    vendor: ['whatwg-fetch', 'es6-promise', 'babel-polyfill', 'react', 'react-moment', 'react-router', 'lodash', './package.json', 'react-markdown', 'mobx', 'mobx-react'],
+    vendor: ['whatwg-fetch', 'es6-promise', 'babel-polyfill', 'react', 'react-moment', 'react-router', 'lodash', './package.json', 'react-markdown', 'mobx', 'mobx-react', 'uuid'],
   },
   cache: false,
   devtool: null,

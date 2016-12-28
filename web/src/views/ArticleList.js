@@ -21,7 +21,9 @@ class ArticleItem extends React.Component {
         <div className={styles.articleMeta}>
           <p className={styles.author}>{article.author}</p>
           {!!article.updateAt &&
-          <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/></p>}
+          <p className={styles.time}>
+            <Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/>
+          </p>}
         </div>
       </article>
     </Link>;

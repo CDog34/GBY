@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles/App.scss';
 import {NetworkIndicator, NetworkError} from './components/NetworkIndicator'
 import {DaoVoiceService} from'./services/DaoVoiceService';
+import {VisitorService} from'./services/VisitorService';
 
 export class App extends React.Component {
   static propTypes = {
@@ -9,7 +10,8 @@ export class App extends React.Component {
   };
 
   componentWillMount() {
-    DaoVoiceService.setUpForAnonymous();
+    const visitor = VisitorService.getVisitor();
+    DaoVoiceService.setUpForVisitor(visitor.uuid);
   }
 
   render() {

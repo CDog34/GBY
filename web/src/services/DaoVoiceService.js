@@ -14,6 +14,15 @@ export class DaoVoiceService {
     window.daovoice('update');
   }
 
+  static setUpForVisitor(userId) {
+    if (!config.enableDaoVoice) return null;
+    window.daovoice('init', {
+      app_id: config.daoVoiceAppId,
+      user_id: config.appEnv + ':' + userId
+    });
+    window.daovoice('update');
+  }
+
   static trackEvent(evtName, evtOpt) {
     if (!config.enableDaoVoice) return null;
     window.daovoice('trackEvent', evtName, {
