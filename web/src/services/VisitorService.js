@@ -7,12 +7,12 @@ export class VisitorService {
   }
 
   static getVisitor() {
-    const instance = LocalStorageService.get(config.visitorName);
+    const instance = JSON.parse(LocalStorageService.get(config.visitorName));
     if (instance && instance.uuid) return instance;
     const newVisitor = {
       uuid: VisitorService.generateUuid()
     };
-    LocalStorageService.set(config.visitorName, newVisitor);
+    LocalStorageService.set(config.visitorName, JSON.stringify(newVisitor));
     return newVisitor;
 
   }

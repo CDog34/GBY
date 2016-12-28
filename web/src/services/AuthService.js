@@ -14,7 +14,7 @@ export class AuthService {
         return true;
       }
       const res = await resRaw.json();
-      LocalStorageService.set('user', res.user);
+      LocalStorageService.set('user', JSON.stringify(res.user));
       LocalStorageService.set('sessionName', res.name);
       LocalStorageService.set('sessionValue', res.value);
       store.setState(true);

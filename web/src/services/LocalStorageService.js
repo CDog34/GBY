@@ -1,15 +1,10 @@
 export class LocalStorageService {
   static set(key, data) {
-    window.localStorage.setItem(key, JSON.stringify(data));
+    window.localStorage.setItem(key, data);
   }
 
   static get(key) {
-    const data = window.localStorage.getItem(key);
-    try {
-      return JSON.parse(data);
-    } catch (err) {
-      return data;
-    }
+    return window.localStorage.getItem(key);
   }
 
   static exist(key) {
