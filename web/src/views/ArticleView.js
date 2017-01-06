@@ -36,12 +36,13 @@ export class ArticleView extends React.Component {
         <div className={styles.articleWrapper}>
           <h1 className={styles.articleTitle}>{article.title}</h1>
           <div className={styles.articleMeta}>
-            <p className={styles.author}>{article.author}</p>
-            {!!article.updateAt &&
-            <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={article.updateAt}/></p>}
+            <p>
+              {article.author}
+              {!!article.updateAt && <Moment format="作于YYYY年MM月DD日" date={article.updateAt}/>}
+            </p>
           </div>
           <div className={[styles.articleContent, 'markdown-body'].join(' ')}>
-            {article.content && <ReactMarkdown source={article.content}/>}
+            {article.content && <ReactMarkdown softBreak='br' source={article.content} className={styles.container}/>}
           </div>
           <div className={styles.back}>
             <BackButton onClick={() => this.props.router.goBack()}/>

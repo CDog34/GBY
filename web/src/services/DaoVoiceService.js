@@ -23,6 +23,7 @@ export class DaoVoiceService {
     window.daovoice('update');
   }
 
+
   static trackEvent(evtName, evtOpt) {
     if (!config.enableDaoVoice) return null;
     window.daovoice('trackEvent', evtName, {

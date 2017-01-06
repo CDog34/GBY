@@ -3,7 +3,7 @@
 .articleWrapper {
   padding: 56px 48px;
   box-sizing: border-box;
-  max-width: 710px;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -17,29 +17,34 @@
 
   .articleMeta {
     display: flex;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 16px;
+    padding-bottom: 48px;
     justify-content: center;
-    border-bottom: 1px solid $color-divider;
     align-self: stretch;
 
     > * {
       margin-top: 0;
       margin-bottom: 0;
       color: $color-text-lighter;
-      font-size: 18px;
+      font-size: 14px;
     }
 
-    .author {
-      margin-right: 16px;
-    }
 
   }
   .articleContent {
     color: $color-text-normal;
     font-size: 18px;
-    line-height: 2.4;
+    line-height: 30px;
     align-self: stretch;
+    text-shadow: 0 0 5px #d0d0d0;
+    user-select: none;
+
+    .container > p:first-of-type:first-letter {
+      font-size: 48px;
+      line-height: 60px;
+      float: left;
+      font-weight: 500;
+    }
   }
 
   .back {

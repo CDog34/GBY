@@ -51,25 +51,34 @@
     color: $color-text-normal;
     align-self: stretch;
     display: flex;
-    min-height: 90vh;
 
     .rawContent {
       flex: 1;
       display: flex;
       padding: 16px 16px 0 0;
+      background-color: #333333;
+      box-sizing: border-box;
 
       textarea {
         flex: 1;
         align-self: stretch;
         padding: 16px;
-        border-color: $color-divider;
+        border: none;
         line-height: 1.5;
+        height: 70vh;
+        outline: none;
+        box-sizing: border-box;
+        background-color: transparent;
+        color: $color-white;
       }
     }
 
     .articleContentRendered {
       flex: 1;
       padding: 16px 0 0 16px;
+      height: 70vh;
+      overflow-y: auto;
+      background-color: $color-divider;
     }
   }
 

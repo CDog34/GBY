@@ -81,7 +81,7 @@ export class AdminArticleCreate extends React.Component {
               <textarea value={content} onChange={this.changeContent.bind(this)} placeholder="在此输入内容"/>
             </div>
             <div className={[styles.articleContentRendered, 'markdown-body'].join(' ')}>
-              <ReactMarkdown source={content}/>
+              <ReactMarkdown softBreak='br' source={content}/>
             </div>
           </div>
 
