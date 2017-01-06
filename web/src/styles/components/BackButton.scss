@@ -1,7 +1,7 @@
 @import "../colors";
 
 .backButton {
-  display: block;
+  display: flex;
   text-decoration: none;
   color: $color-text-lighter;
   font-size: 18px;
@@ -12,6 +12,8 @@
   text-align: center;
   border: 1px solid $color-divider;
   transition: all .5s;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: $color-text-lighter;

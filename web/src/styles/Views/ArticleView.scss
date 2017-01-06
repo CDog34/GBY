@@ -49,6 +49,10 @@
 
   .back {
     margin: 96px 0;
+    display: flex;
+    > * {
+      margin: 0 8px;
+    }
   }
 
 }

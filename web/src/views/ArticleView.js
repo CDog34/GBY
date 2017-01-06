@@ -45,7 +45,8 @@ export class ArticleView extends React.Component {
             {article.content && <ReactMarkdown softBreak='br' source={article.content} className={styles.container}/>}
           </div>
           <div className={styles.back}>
-            <BackButton onClick={() => this.props.router.goBack()}/>
+            {window.history.length > 0 && <BackButton onClick={() => this.props.router.goBack()}/>}
+            <BackButton to="/">首页</BackButton>
           </div>
         </div>
       </PageContent>
