@@ -43,6 +43,10 @@ var articlePostRules = services.FieldRules{
 		"required": false,
 		"type":     "boolean",
 	},
+	"updateAt": services.FieldRule{
+		"required": false,
+		"type":     "string",
+	},
 }
 
 func ArticleShow(w http.ResponseWriter, r *http.Request) (error, interface{}) {
@@ -58,9 +62,13 @@ func ArticleCreate(w http.ResponseWriter, r *http.Request) (error, interface{}) 
 	if err := params.Valid(); err != nil {
 		return err, nil
 	}
+	newTime, parseErr := time.Parse("2006-01-02T15:04:05.000Z", params.GetString("updateAt"))
+	if parseErr != nil {
+		newTime = time.Now()
+	}
 	newArticle := Article{
 		Title:    params.GetString("title"),
-		UpdateAt: time.Now(),
+		UpdateAt: newTime,
 		Author:   params.GetString("author"),
 		Content:  params.GetString("content"),
 	}
@@ -78,9 +86,13 @@ func ArticleUpdate(w http.ResponseWriter, r *http.Request) (error, interface{}) 
 	if err := params.Valid(); err != nil {
 		return err, nil
 	}
+	newTime, parseErr := time.Parse("2006-01-02T15:04:05.000Z", params.GetString("updateAt"))
+	if parseErr != nil {
+		newTime = time.Now()
+	}
 	newArticle := Article{
 		Title:       params.GetString("title"),
-		UpdateAt:    time.Now(),
+		UpdateAt:    newTime,
 		Author:      params.GetString("author"),
 		Content:     params.GetString("content"),
 		ShowOnIndex: params.GetBool("showOnIndex"),

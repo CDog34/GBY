@@ -33,7 +33,7 @@ func (a *Article) List(all bool, onIndex bool) (error, Articles) {
 	}
 	defer dbSession.Close()
 	result := make(Articles, 0, 10)
-	err := query.Select(bson.M{"content": 0}).Sort("-_id").All(&result)
+	err := query.Select(bson.M{"content": 0}).Sort("-updateat").All(&result)
 	return err, result
 }
 

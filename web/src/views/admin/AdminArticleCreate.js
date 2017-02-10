@@ -5,8 +5,11 @@ import styles from '../../styles/Views/admin/ArticleView.scss';
 import {BackButton} from '../../components/BackButton';
 import {PageContent} from '../../components/PageContent';
 import {ArticleService} from '../../services/ArticleService';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 require('github-markdown-css');
+require('react-datepicker/dist/react-datepicker.css');
 
 
 export class AdminArticleCreate extends React.Component {
@@ -54,13 +57,18 @@ export class AdminArticleCreate extends React.Component {
       await ArticleService.save(Object.assign(this.article, {
         title: this.state.title,
         author: this.state.author,
-        content: this.state.content
+        content: this.state.content,
+        updateAt: this.state.updateAt
       }));
       this.props.router.goBack();
     } catch (err) {
     }
 
 
+  }
+
+  dateChange(date) {
+    this.setState({updateAt: date});
   }
 
   render() {
@@ -73,7 +81,10 @@ export class AdminArticleCreate extends React.Component {
           <div className={styles.articleMeta}>
             <input type="text" className={styles.author} value={author} onChange={this.changeAuthor.bind(this)}
                    placeholder="作者"/>
-            <p className={styles.time}><Moment format="YYYY年MM月DD日 HH:mm" date={updateAt}/></p>
+            {/*<p className={styles.time}>*/}
+            {/*<Moment format="YYYY年MM月DD日 HH:mm" date={updateAt}/>*/}
+            <DatePicker selected={moment(updateAt)} onChange={this.dateChange.bind(this)}/>
+            {/*</p>*/}
             <button onClick={this.save.bind(this)}>保存</button>
           </div>
           <div className={styles.articleContent}>
