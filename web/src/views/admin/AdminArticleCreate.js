@@ -1,5 +1,4 @@
 import React from 'react';
-import Moment from 'react-moment';
 import ReactMarkdown from 'react-markdown';
 import styles from '../../styles/Views/admin/ArticleView.scss';
 import {BackButton} from '../../components/BackButton';

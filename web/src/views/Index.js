@@ -9,7 +9,6 @@ import {ArticleService} from '../services/ArticleService';
 import {DaoVoiceService} from '../services/DaoVoiceService';
 import {AuthStore} from '../stores/AuthStore';
 import pkg from '../../package.json';
-import {DynamicBackground} from '../components/DynamicBackground';
 
 
 class Action extends React.Component {
