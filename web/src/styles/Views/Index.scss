@@ -8,18 +8,19 @@
   flex-direction: column;
   transition: background-image .5s, transform 5s;
 
-
   .title {
     display: flex;
     align-items: center;
     flex-direction: column;
   }
   h1 {
-    color: rgba($color-white, 0.87);
+    color: $color-text-normal;
+    font-size: 56px;
+    font-weight: 400;
   }
 
   span {
-    color: rgba($color-white, 0.54);
+    color: $color-text-lighter;
   }
 
   .actions {
@@ -28,25 +29,16 @@
     margin-top: 48px;
   }
   .action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 0 16px;
     font-size: 14px;
-    background-color: transparent;
-    width: 56px;
-    height: 56px;
-    border-radius: 28px;
-    border: solid 1px $color-divider;
     cursor: pointer;
     transition: all .5s;
     user-select: none;
-    color: rgba($color-white, 0.54);
+    color: $color-text-lighter;
     text-decoration: none;
 
     &:hover {
       background-color: $color-text-lighter;
-      border: solid 1px transparent;
       color: $color-white;
     }
 

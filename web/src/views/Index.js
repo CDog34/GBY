@@ -48,7 +48,6 @@ export class Index extends React.Component {
     const store = AuthStore.getInstance();
     return (
       <div className={styles.index}>
-        <DynamicBackground/>
         <div className={styles.title}>
           <h1>西道の狗窝</h1>
           <span>CDog's Kennel</span>

@@ -11,7 +11,7 @@ export class BackButton extends React.Component {
   };
 
   render() {
-    const text = this.props.children || '←返回';
+    const text = this.props.children || '返回';
     if (this.props.onClick) return (
       <a href="#" className={styles.backButton} onClick={this.props.onClick.bind(this)}>{text}</a>
     );

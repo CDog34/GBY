@@ -22,7 +22,7 @@ class ArticleItem extends React.Component {
           <p className={styles.author}>{article.author}</p>
           {!!article.updateAt &&
           <p className={styles.time}>
-            <Moment format="YYYY年MM月DD日" date={article.updateAt}/>
+            作于 <Moment format="YYYY年MM月DD日" date={article.updateAt}/>
           </p>}
         </div>
       </article>

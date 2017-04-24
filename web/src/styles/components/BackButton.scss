@@ -1,23 +1,13 @@
 @import "../colors";
 
 .backButton {
-  display: flex;
   text-decoration: none;
   color: $color-text-lighter;
   font-size: 18px;
-  line-height: 48px;
-  width: 96px;
-  height: 48px;
-  border-radius: 24px;
-  text-align: center;
-  border: 1px solid $color-divider;
   transition: all .5s;
-  justify-content: center;
-  align-items: center;
 
   &:hover {
     background-color: $color-text-lighter;
-    border: solid 1px transparent;
     color: $color-white;
   }
 }

@@ -3,16 +3,15 @@
 .listWrapper {
   padding: 56px 48px;
   box-sizing: border-box;
-  max-width: 710px;
   margin: 0 auto;
+  max-width: 710px;
   a {
     text-decoration: none;
   }
 
   .listItem {
-    padding-left: 64px;
     padding-bottom: 48px;
-    border-left: 1px solid $color-divider;
+    text-align: center;
 
     h1 {
       margin: 0;
@@ -24,6 +23,7 @@
     .articleMeta {
       display: flex;
       padding-top: 8px;
+      justify-content: center;
 
       > * {
         margin-top: 0;

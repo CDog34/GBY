@@ -10,9 +10,10 @@
   align-items: center;
 
   h1.articleTitle {
-    font-size: 30px;
+    font-size: 48px;
     margin: 0;
     color: $color-text-normal;
+    font-weight: 400;
   }
 
   .articleMeta {
@@ -26,32 +27,23 @@
       margin-top: 0;
       margin-bottom: 0;
       color: $color-text-lighter;
-      font-size: 14px;
+      font-size: 16px;
     }
-
 
   }
   .articleContent {
     color: $color-text-normal;
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 2;
     align-self: stretch;
-    text-shadow: 0 0 5px #d0d0d0;
     user-select: none;
-
-    .container > p:first-of-type:first-letter {
-      font-size: 48px;
-      line-height: 60px;
-      float: left;
-      font-weight: 500;
-    }
   }
 
   .back {
     margin: 96px 0;
     display: flex;
     > * {
-      margin: 0 8px;
+      margin: 0 16px;
     }
   }
 
